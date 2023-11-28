@@ -56,7 +56,7 @@ const privacyPage: NextPage = () => {
 
               <h2 id="changes" className="mt-10 text-4xl">Privacy Policy Changes</h2>
               <p className="my-4 text-2xl">Although most changes to <LinkInternal href="" title="AriadneAntipa.com">AriadneAntipa.com</LinkInternal> are likely to be minor, Ariadne Antipa may change this Privacy Policy from time to time, and in Ariadne Antipa’s sole discretion. Ariadne Antipa encourages users to frequently check this page for any changes to this Privacy Policy. Your continued use of this site after any change in this Privacy Policy will constitute your acceptance of such change.</p>
-              <p className="my-4 text-2xl"><i>This Privacy Policy was last updated on November 27, 2023. Visit the <LinkExternal href="https://github.com/derek-perry/jamessellsnsb" title="Visit the GitHub for Ariadne Antipa's Website at github.com/derek-perry/ariadneantipa.com">website files on GitHub</LinkExternal> for version history.</i></p>
+              <p className="my-4 text-2xl"><i>This Privacy Policy was last updated on November 28, 2023. Visit the <LinkExternal href="https://github.com/derek-perry/ariadneantipa.com" title="Visit the GitHub for Ariadne Antipa's Website at github.com/derek-perry/ariadneantipa.com">website files on GitHub</LinkExternal> for version history.</i></p>
 
 
               <h2 id="contact-info" className="mt-10 text-4xl">Contact Information</h2>
