@@ -3,7 +3,7 @@ const nextConfig = {
   swcMinify: true,
   crossOrigin: 'anonymous',
   images: {
-    domains: ['localhost', 'ariadneantipa.com'],
+    domains: ['localhost', 'ariadneantipa.netlify.app', 'ariadneantipa.com'],
     remotePatterns: [
       {
         protocol: "https",
