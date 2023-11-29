@@ -1,17 +1,15 @@
 import type { NextPage } from 'next';
 import SiteHead from '../components/SiteHead';
-import Hero from '../components/Hero';
 import PageFooter from '../components/PageFooter';
 
 const teachingphilosophyPage: NextPage = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center">
       <SiteHead title="Ariadne Antipa's Teaching Philosophy" description="AriadneAntipa.com is the official website for Ariadne Antipa - Pianist, Educator, and Conductor" url="teaching-philosophy" />
-      <Hero />
 
       <main className="bg-ariBlack text-ariWhite w-full flex flex-1 flex-col text-center items-center justify-center">
-        <section className="py-9 px-9 max-w-[1000px] w-full flex flex-1 flex-col items-center justify-center">
-          <section id="teaching-philosophy" className="pt-10 mb-20 max-w-[1000px] text-left">
+        <section id="teaching-philosophy">
+          <section className="px-9 max-md:mt-10 md:mt-20 mb-28 max-w-[1000px] text-left">
             <h1 className="mb-4 text-6xl">Teaching Philosophy</h1>
             <p className="text-xl">Every student is a unique being of creativity, experience, ability, struggles, and aspirations. It is the teacher’s duty to assume the position of mentor who meets the student at his, her, or their level in each area. There cannot be one method of teaching to apply to all students, however, there are a few large-scale values that I have as a teacher: The primary concern of the teacher is to foster deeper love and understanding of music and pianistic ability in the student; the teacher should always have an underlying current of teaching the student to be self-reliant; the teacher is instrumental in helping cultivate the student’s discipline; and the teacher should be a guide for what the student wishes to achieve.</p>
             <p className="mt-2 text-xl">A tailored approach is critical for each student in order to best nurture his, her, or their relationship to music. It is important for young minds to have supportive parental involvement, for young adults to be challenged and encouraged, and for adult students to be invigorated to learn an art form that is fun and rewarding. Regardless of age or level, each student deserves the care and direction needed to help them reach their potential and deepest love for music.</p>

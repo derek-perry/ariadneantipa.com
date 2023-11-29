@@ -1,6 +1,5 @@
 import type { NextPage } from 'next';
 import SiteHead from '../components/SiteHead';
-import Hero from '../components/Hero';
 import PageFooter from '../components/PageFooter';
 import LinkExternal from '../components/Links/LinkExternal';
 
@@ -8,11 +7,10 @@ const aboutPage: NextPage = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center">
       <SiteHead title="About Ariadne Antipa" description="AriadneAntipa.com is the official website for Ariadne Antipa - Pianist, Educator, and Conductor" url="about" />
-      <Hero />
 
       <main className="bg-ariBlack text-ariWhite w-full flex flex-1 flex-col text-center items-center justify-center">
-        <section className="py-9 px-9 max-w-[1000px] w-full flex flex-1 flex-col items-center justify-center">
-          <section id="contact" className="pt-10 mb-20 max-w-[1000px] text-left">
+        <section id="about">
+          <div className="px-9 max-md:mt-10 md:mt-20 mb-28 max-w-[1000px] text-left">
             <h1 className="mb-4 text-6xl">Biography</h1>
             <p className="text-xl">Recognized for her creative programming and “exquisitely played” concerts (The Brook Center of New York), Ariadne Antipa is a pianist, conductor, and educator residing in Cincinnati, Ohio. She has toured the United States and several countries throughout Europe and Africa as a performer and pedagogue. She received first place in many competitions including the Ann Krusche Piano Competition, the Rochester International School of Music & Arts Competition, and the King’s Peak International Music Competition, and was a semi-finalist for the 2020 Astral Artist award. She has appeared as concerto soloist with the Central Valley Youth Symphony, Sacramento State Symphony, and most recently with the University of South Florida Wind Ensemble, performing Gershwin’s Rhapsody in Blue. She was featured in a live-radio broadcast on Tampa’s WSMR and Cincinnati’s WVXU classical stations and is regularly invited back to play on concert series across the country. She has performed as a soloist and collaborator in venues across the globe, including the Centro Municipal Integrado Pumarín (Spain), the Faye Spanos Concert Hall (United States), and the Château de Fontainebleau (France).</p>
             <p className="mt-2 text-xl">Ariadne is committed to collaborating with living composers and performing works of both celebrated and unfamiliar composers. Her projects include the Midwest premiere and recording of “Six Preludes After Chopin” by CCM’s Professor Miguel Roig-Francoli and participation in composer Tyler Kline’s commissioning consortium for Orchard, an album of 50 short solo piano pieces inspired by fruit, available on Neuma Records. Ariadne chooses each concert program with care, providing audiences a varied selection of music representing diverse backgrounds, time-periods, and familiarity. She is particularly devoted to sharing the music of 20th century Armenian composer Arno Babadjanian, an immensely creative composer whose music is seldom heard in the United States.</p>
@@ -20,7 +18,7 @@ const aboutPage: NextPage = () => {
             <p className="mt-2 text-xl">An advocate for social justice, Ariadne commissioned Dr. Brian Raphael Nabors to compose a choral work focused on race in America, using poetry and participants’ personal stories to convey a message relevant in today’s world. The finished product is a virtual choir piece in four movements, with over 30 singers from around the world.</p>
             <p className="mt-2 text-xl">Ariadne holds a BM in Piano Performance from the Eastman School of Music where she studied with Ms. Rebecca Penneys, an MM in Piano Performance and Pedagogy from the University of Michigan where she studied with Dr. Logan Skelton, and DMA in Piano Performance with a minor in Choral Conducting from the University of Cincinnati’s College-Conservatory of Music where she studied with Dr. Ran Dank. Among her former teachers are Dr. Lorna Peters, Mr. Richard Cionco, and Dr. Natsuki Fukasawa.</p>
             <p className="mt-2 text-xl">As a teacher, Ariadne maintains a vibrant private studio of in-person and online students from across the country. Her students have scored in the highest percentile for RCM exams and have been accepted into college and pre-college music programs with scholarship. At the collegiate level, Ariadne was a Graduate Teaching Assistant at the University of Cincinnati and at the University of Michigan, and has served as Adjunct Faculty member at Wilmington College in Wilmington, Ohio. Ariadne is the choir director for the Holy Trinity-St. Nicholas Greek Orthodox Church in Finneytown, Ohio.</p>
-          </section>
+          </div>
         </section>
       </main>
 
