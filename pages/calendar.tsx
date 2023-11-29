@@ -1,7 +1,6 @@
 import React from 'react';
 import type { GetServerSideProps, NextPage } from 'next';
 import { getEvents } from '../lib/api';
-import Image from 'next/image';
 import SiteHead from '../components/SiteHead';
 import PageFooter from '../components/PageFooter';
 
@@ -13,8 +12,7 @@ interface listingsInnerProps {
   name: string,
   datetime: string,
   description: string,
-  price: string,
-  image: string
+  price: string
 }
 
 const calendarPage: NextPage<listingsProps> = ({ listings }) => {
@@ -41,7 +39,7 @@ const calendarPage: NextPage<listingsProps> = ({ listings }) => {
           <div className="mb-28 max-w-[1000px] w-full overflow-hidden flex flex-row flex-wrap gap-x-8 gap-y-8 items-top justify-center text-center text-xl">
             {listings
               .slice(1)
-              .map(({ name, datetime, price, description, image }) => (
+              .map(({ name, datetime, price, description }) => (
                 <article
                   className="bg-[#1c1c1a] rounded-t-md overflow-hidden w-full max-w-full xl:max-w-[500px]"
                   key={name}
@@ -51,13 +49,6 @@ const calendarPage: NextPage<listingsProps> = ({ listings }) => {
                   <p className="mt-4 mb-1 text-2xl px-5">{datetime}</p>
                   <p className="mb-4 text-2xl px-5"><em>{price}</em></p>
                   <p className="mt-2 mb-4 max-sm:hyphens-auto text-left px-5" dangerouslySetInnerHTML={{ __html: stringWithLineBreaks(description) }} />
-                  <Image
-                    src={process.env.NEXT_PUBLIC_SITE_URL + image}
-                    width={1000}
-                    height={888.8}
-                    alt="Ariadne Antipa"
-                    className="bg-ariBlack text-center flex items-center justify-center align-middle break-all overflow-auto"
-                  />
                 </article>
               ))}
           </div>
