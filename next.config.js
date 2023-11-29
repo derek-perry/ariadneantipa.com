@@ -30,6 +30,66 @@ const nextConfig = {
         "permanent": true
       },
       {
+        "source": "/bio",
+        "destination": "/about",
+        "permanent": true
+      },
+      {
+        "source": "/biography",
+        "destination": "/about",
+        "permanent": true
+      },
+      {
+        "source": "/events",
+        "destination": "/calendar",
+        "permanent": true
+      },
+      {
+        "source": "/schedule",
+        "destination": "/calendar",
+        "permanent": true
+      },
+      {
+        "source": "/media",
+        "destination": "/photos",
+        "permanent": true
+      },
+      {
+        "source": "/photo",
+        "destination": "/photos",
+        "permanent": true
+      },
+      {
+        "source": "/pictures",
+        "destination": "/photos",
+        "permanent": true
+      },
+      {
+        "source": "/picture",
+        "destination": "/photos",
+        "permanent": true
+      },
+      {
+        "source": "/videos",
+        "destination": "/recordings",
+        "permanent": true
+      },
+      {
+        "source": "/video",
+        "destination": "/recordings",
+        "permanent": true
+      },
+      {
+        "source": "/project",
+        "destination": "/projects",
+        "permanent": true
+      },
+      {
+        "source": "/teachingphilosophy",
+        "destination": "/teaching-philosophy",
+        "permanent": true
+      },
+      {
         "source": "/privacypolicy",
         "destination": "/privacy",
         "permanent": true
