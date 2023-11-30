@@ -1,21 +1,22 @@
 import React from 'react';
 import type { GetServerSideProps, NextPage } from 'next';
-import { getEvents } from '../lib/api';
+import { getEvents, getPastEvents } from '../lib/api';
 import SiteHead from '../components/SiteHead';
 import PageFooter from '../components/PageFooter';
 
-interface listingsProps {
-  listings: listingsInnerProps[]
+interface eventsProps {
+  events: eventInnerProps[]
+  pastEvents: eventInnerProps[]
 }
 
-interface listingsInnerProps {
+interface eventInnerProps {
   name: string,
   datetime: string,
   price: string,
   description: string
 }
 
-const calendarPage: NextPage<listingsProps> = ({ listings }) => {
+const calendarPage: NextPage<eventsProps> = ({ events, pastEvents }) => {
   function stringWithLineBreaks(inputString: string) {
     var outputString = inputString.toString().replace(/\n/g, "<br />");
     return outputString;
@@ -35,9 +36,9 @@ const calendarPage: NextPage<listingsProps> = ({ listings }) => {
           </section>
         </section>
 
-        <section id="listings">
+        <section id="events">
           <div className="mb-28 max-w-[1000px] w-full overflow-hidden flex flex-row flex-wrap gap-x-8 gap-y-8 items-top justify-center text-center text-xl">
-            {listings
+            {events
               .slice(1)
               .map(({ name, datetime, price, description }) => (
                 <article
@@ -53,6 +54,24 @@ const calendarPage: NextPage<listingsProps> = ({ listings }) => {
               ))}
           </div>
         </section>
+
+        <section id="past">
+          <h2 className="mb-4">Past Events</h2>
+          <div className="mb-28 max-w-[1000px] w-full overflow-hidden flex flex-row flex-wrap gap-x-8 gap-y-8 items-top justify-center text-center text-xl">
+            {pastEvents
+              .slice(1)
+              .map(({ name, datetime }) => (
+                <article
+                  className="bg-[#1c1c1a] rounded-md overflow-hidden w-full max-w-full xl:max-w-[500px]"
+                  key={name}
+                  id={stringWithUrlSupport(name)}
+                >
+                  <h3 className="bg-ariWhite text-ariBlack flex items-center justify-center font-bold text-3xl p-5 max-sm:hyphens-auto">{name}</h3>
+                  <p className="bg-ariWhite text-ariBlack flex items-center justify-center max-sm:hyphens-auto text-2xl pb-5 px-5" dangerouslySetInnerHTML={{ __html: stringWithLineBreaks(datetime) }} />
+                </article>
+              ))}
+          </div>
+        </section>
       </main>
 
       <PageFooter />
@@ -63,11 +82,13 @@ const calendarPage: NextPage<listingsProps> = ({ listings }) => {
 export default calendarPage;
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const listings = await getEvents();
+  const events = await getEvents();
+  const pastEvents = await getPastEvents();
 
   return {
     props: {
-      listings
+      events,
+      pastEvents
     }
   };
 };
