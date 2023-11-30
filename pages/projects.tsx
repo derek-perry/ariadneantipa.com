@@ -1,7 +1,6 @@
 import React from 'react';
 import type { GetServerSideProps, NextPage } from 'next';
 import { getProjects } from '../lib/api';
-import Image from 'next/image';
 import SiteHead from '../components/SiteHead';
 import PageFooter from '../components/PageFooter';
 
@@ -11,8 +10,7 @@ interface listingsProps {
 
 interface listingsInnerProps {
   name: string,
-  description: string,
-  image: string
+  description: string
 }
 
 const calendarPage: NextPage<listingsProps> = ({ listings }) => {
@@ -39,7 +37,7 @@ const calendarPage: NextPage<listingsProps> = ({ listings }) => {
           <div className="mb-28 max-w-[1000px] w-full overflow-hidden flex flex-row flex-wrap gap-20 items-top justify-center text-center text-xl">
             {listings
               .slice(1)
-              .map(({ name, description, image }) => (
+              .map(({ name, description }) => (
                 <article
                   className="bg-[#1c1c1a] rounded-t-md overflow-hidden w-full max-w-full xl:max-w-[500px]"
                   key={name}
@@ -47,13 +45,6 @@ const calendarPage: NextPage<listingsProps> = ({ listings }) => {
                 >
                   <h2 className="bg-ariWhite text-ariBlack min-h-[88px] flex items-center justify-center px-5 mb-3 max-sm:hyphens-auto">{name}</h2>
                   <p className="my-4 max-sm:hyphens-auto text-left px-5" dangerouslySetInnerHTML={{ __html: stringWithLineBreaks(description) }} />
-                  <Image
-                    src={process.env.NEXT_PUBLIC_SITE_URL + image}
-                    width={1000}
-                    height={888.8}
-                    alt={name}
-                    className="bg-ariBlack text-center flex items-center justify-center align-middle break-all overflow-auto"
-                  />
                 </article>
               ))}
           </div>
