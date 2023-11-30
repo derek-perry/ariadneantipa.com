@@ -37,6 +37,7 @@ const calendarPage: NextPage<eventsProps> = ({ events, pastEvents }) => {
         </section>
 
         <section id="events">
+          <h2 className="mb-4">Upcoming Events</h2>
           <div className="mb-28 max-w-[1000px] w-full overflow-hidden flex flex-row flex-wrap gap-x-8 gap-y-8 items-top justify-center text-center text-xl">
             {events
               .slice(1)
