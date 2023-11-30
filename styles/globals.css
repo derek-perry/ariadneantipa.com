@@ -11,14 +11,80 @@ body {
   scroll-behavior: smooth;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: "Cormorant Infant", Helvetica, Verdana, Arial;
-}
-
 .CormorantInfant {
   font-family: "Cormorant Infant", Helvetica, Verdana, Arial;
 }
 
 .TitilliumWeb {
   font-family: "Titillium Web", Helvetica, Verdana, Arial;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Cormorant Infant", Helvetica, Verdana, Arial;
+}
+
+h1 {
+  font-size: 3.75rem;
+  line-height: 1;
+}
+
+h2 {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+h4 {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+a {
+  text-decoration-line: underline;
+  color: #C5A974;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 100ms;
+}
+
+a:hover {
+  text-decoration-line: none;
+  color: #69443B;
+}
+
+a:focus {
+  text-decoration-line: none;
+  color: #FFFFFF;
+}
+
+.button {
+  text-decoration-line: none;
+  color: #FFFFFF;
+  background-color: #C5A974;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
+  border-radius: 0.25rem;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 100ms;
+}
+
+.button:hover {
+  text-decoration-line: none;
+  color: #FFFFFF;
+  background-color: #69443B;
+}
+
+.button:focus {
+  text-decoration-line: none;
+  color: #111214;
+  background-color: #FFFFFF;
 }

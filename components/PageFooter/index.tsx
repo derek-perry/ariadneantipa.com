@@ -16,7 +16,7 @@ const PageFooter = (): JSX.Element => {
           <LinkInternal href="teaching-philosophy" title="Teaching Philosophy">Teaching Philosophy</LinkInternal>
           <LinkInternal href="contact" title="Contact">Contact</LinkInternal>
         </div>
-        <div className="flex flex-row flex-wrap gap-x-[621px] gap-y-4 text-center items-center justify-center">
+        <div className="flex flex-row flex-wrap gap-x-[621px] gap-y-4 text-center items-center justify-center text-ariWhite">
           <p> © {currentYear} Ariadne Antipa</p>
           <LinkInternal href="privacy" title="Privacy Policy">Privacy Policy</LinkInternal>
         </div>
