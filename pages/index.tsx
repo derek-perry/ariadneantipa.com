@@ -46,45 +46,47 @@ const homePage: NextPage<itemProps> = ({ events, projects }) => {
           </div>
         </section>
 
-        <section id="events">
-          <h2 className="mb-4">Upcoming Events</h2>
-          <div className="mb-28 px-9 max-w-[1000px] w-full overflow-hidden flex flex-row flex-wrap gap-x-8 gap-y-8 items-top justify-center text-center text-xl">
-            {events
-              .slice(1)
-              .map(({ name, datetime }) => (
-                <article
-                  className="bg-[#1c1c1a] rounded-md overflow-hidden w-full max-w-full xl:max-w-[500px]"
-                  key={name}
-                  id={stringWithUrlSupport(name)}
-                >
-                  <h3 className="bg-ariWhite text-ariBlack flex items-center justify-center font-bold text-3xl p-5 max-sm:hyphens-auto">{name}</h3>
-                  <p className="bg-ariWhite text-ariBlack flex items-center justify-center max-sm:hyphens-auto text-2xl pb-5 px-5" dangerouslySetInnerHTML={{ __html: stringWithLineBreaks(datetime) }} />
-                  <div className="bg-ariWhite text-ariBlack text-2xl pb-5 px-5">
-                    <LinkInternal href={'/calendar#' + stringWithUrlSupport(name)} title={`Read More about ${name}`}>Learn More</LinkInternal>
-                  </div>
-                </article>
-              ))}
-          </div>
-        </section>
+        <section id="eventsandprojects" className="mb-28 flex flex-row flex-wrap gap-x-8 gap-y-20 items-top justify-center text-center">
+          <section id="events">
+            <h2 className="mb-4">Upcoming Events</h2>
+            <div className="max-w-[520px] w-full overflow-hidden flex flex-row flex-wrap gap-x-8 gap-y-8 items-top justify-center text-center text-xl">
+              {events
+                .slice(1)
+                .map(({ name, datetime }) => (
+                  <article
+                    className="bg-[#1c1c1a] rounded-md overflow-hidden w-full max-w-full xl:max-w-[500px]"
+                    key={name}
+                    id={stringWithUrlSupport(name)}
+                  >
+                    <h3 className="bg-ariWhite text-ariBlack flex items-center justify-center font-bold text-3xl p-5 max-sm:hyphens-auto">{name}</h3>
+                    <p className="bg-ariWhite text-ariBlack flex items-center justify-center max-sm:hyphens-auto text-2xl pb-5 px-5" dangerouslySetInnerHTML={{ __html: stringWithLineBreaks(datetime) }} />
+                    <div className="bg-ariWhite text-ariBlack text-2xl pb-5 px-5">
+                      <LinkInternal href={'calendar#' + stringWithUrlSupport(name)} title={`Read More about ${name}`}>Learn More</LinkInternal>
+                    </div>
+                  </article>
+                ))}
+            </div>
+          </section>
 
-        <section id="projects">
-          <h2 className="mb-4">Projects</h2>
-          <div className="mb-28 px-9 max-w-[1000px] w-full overflow-hidden flex flex-row flex-wrap gap-x-8 gap-y-8 items-top justify-center text-center text-xl">
-            {projects
-              .slice(1)
-              .map(({ name }) => (
-                <article
-                  className="bg-[#1c1c1a] rounded-md overflow-hidden w-full max-w-full xl:max-w-[500px]"
-                  key={name}
-                  id={stringWithUrlSupport(name)}
-                >
-                  <h3 className="bg-ariWhite text-ariBlack flex items-center justify-center font-bold text-3xl p-5 max-sm:hyphens-auto">{name}</h3>
-                  <div className="bg-ariWhite text-ariBlack text-2xl pb-5 px-5">
-                    <LinkInternal href={'/project#' + stringWithUrlSupport(name)} title={`Read More about ${name}`}>Learn More</LinkInternal>
-                  </div>
-                </article>
-              ))}
-          </div>
+          <section id="projects">
+            <h2 className="mb-4">Projects</h2>
+            <div className="max-w-[520px] w-full overflow-hidden flex flex-row flex-wrap gap-8 items-top justify-center text-center text-xl">
+              {projects
+                .slice(1)
+                .map(({ name }) => (
+                  <article
+                    className="bg-[#1c1c1a] rounded-md overflow-hidden w-full max-w-full lg:max-w-[500px]"
+                    key={name}
+                    id={stringWithUrlSupport(name)}
+                  >
+                    <h3 className="bg-ariWhite text-ariBlack flex items-center justify-center font-bold text-3xl p-5 max-sm:hyphens-auto">{name}</h3>
+                    <div className="bg-ariWhite text-ariBlack text-2xl pb-5 px-5">
+                      <LinkInternal href={'project#' + stringWithUrlSupport(name)} title={`Read More about ${name}`}>Learn More</LinkInternal>
+                    </div>
+                  </article>
+                ))}
+            </div>
+          </section>
         </section>
       </main>
 

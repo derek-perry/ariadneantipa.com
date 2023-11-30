@@ -6,22 +6,22 @@ import PageFooter from '../components/PageFooter';
 
 interface itemProps {
   projects: projectInnerProps[]
-}
+};
 
 interface projectInnerProps {
   name: string,
   description: string
-}
+};
 
-const calendarPage: NextPage<itemProps> = ({ projects }) => {
+const projectsPage: NextPage<itemProps> = ({ projects }) => {
   function stringWithLineBreaks(inputString: string) {
     var outputString = inputString.toString().replace(/\n/g, "<br />");
     return outputString;
-  }
+  };
   function stringWithUrlSupport(inputString: string) {
     var outputString = inputString.trim().toString().toLowerCase().replace(/\s+/g, '-').replace(/ - /g, "-").replace(/---/g, "-").replace(/\&/g, "and").replace(/;/g, "%3B").replace(/:/g, "%3A").replace(/"/g, "%22").replace(/'/g, "%27").replace(/,/g, "%2C").replace(/\?/g, "%3F").replace(/!/g, "%21").replace(/@/g, "%40").replace(/#/g, "%23").replace(/\$/g, "%24").replace(/&/g, "%26").replace(/\*/g, "%2A").replace(/=/g, "%3D").replace(/\+/g, "%2B").replace(/\(/g, "%28").replace(/\)/g, "%29").replace(/\[/g, "%5B").replace(/\]/g, "%5D").replace(/\\/g, "%5C").replace(/\//g, "%2F");
     return outputString;
-  }
+  };
   return (
     <div className="min-h-screen flex flex-col items-center justify-center">
       <SiteHead title="Ariadne Antipa's Projects" description="AriadneAntipa.com is the official website for Ariadne Antipa - Pianist, Educator, and Conductor" url="projects" />
@@ -34,12 +34,12 @@ const calendarPage: NextPage<itemProps> = ({ projects }) => {
         </section>
 
         <section id="project-items">
-          <div className="mb-28 max-w-[1000px] w-full overflow-hidden flex flex-row flex-wrap gap-20 items-top justify-center text-center text-xl">
+          <div className="mb-28 max-w-[1080px] w-full overflow-hidden flex flex-row flex-wrap gap-16 items-top justify-center text-center text-xl">
             {projects
               .slice(1)
               .map(({ name, description }) => (
                 <article
-                  className="bg-[#1c1c1a] rounded-t-md overflow-hidden w-full max-w-full xl:max-w-[500px]"
+                  className="bg-[#1c1c1a] rounded-t-md overflow-hidden w-full max-w-full"
                   key={name}
                   id={stringWithUrlSupport(name)}
                 >
@@ -56,7 +56,7 @@ const calendarPage: NextPage<itemProps> = ({ projects }) => {
   );
 };
 
-export default calendarPage;
+export default projectsPage;
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const projects = await getProjects();
