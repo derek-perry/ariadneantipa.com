@@ -11,7 +11,7 @@ const photosPage: NextPage = () => {
       <main className="bg-ariBlack text-ariWhite w-full flex flex-1 flex-col text-center items-center justify-center">
         <section id="photos">
           <section className="px-9 max-md:mt-10 md:mt-20 mb-28 max-w-[1050px] text-left">
-            <h1 className="mb-4 text-6xl">Photos</h1>
+            <h1 className="mb-4">Photos</h1>
             <div className="flex max-md:flex-col md:flex-row">
               <Image
                 src={process.env.NEXT_PUBLIC_SITE_URL + '/AriadneAntipa18.jpg' || './AriadneAntipa18.jpg'}

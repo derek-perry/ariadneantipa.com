@@ -10,7 +10,7 @@ const recordingsPage: NextPage = () => {
       <main className="bg-ariBlack text-ariWhite w-full flex flex-1 flex-col text-center items-center justify-center">
         <section id="recordings">
           <section className="px-9 max-md:mt-10 md:mt-20 mb-28 max-w-[1000px] text-left">
-            <h1 className="mb-4 text-6xl">Recordings</h1>
+            <h1 className="mb-4">Recordings</h1>
             <div className="flex max-md:flex-col md:flex-row md:flex-wrap gap-y-2">
               <div className="flex flex-col mx-auto md:max-w-[708px]">
                 <iframe
