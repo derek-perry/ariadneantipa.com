@@ -4,27 +4,27 @@ import { getEvents, getPastEvents } from '../lib/api';
 import SiteHead from '../components/SiteHead';
 import PageFooter from '../components/PageFooter';
 
-interface eventsProps {
-  events: eventInnerProps[]
+interface itemProps {
+  events: eventInnerProps[],
   pastEvents: eventInnerProps[]
-}
+};
 
 interface eventInnerProps {
   name: string,
   datetime: string,
   price: string,
   description: string
-}
+};
 
-const calendarPage: NextPage<eventsProps> = ({ events, pastEvents }) => {
+const calendarPage: NextPage<itemProps> = ({ events, pastEvents }) => {
   function stringWithLineBreaks(inputString: string) {
     var outputString = inputString.toString().replace(/\n/g, "<br />");
     return outputString;
-  }
+  };
   function stringWithUrlSupport(inputString: string) {
     var outputString = inputString.trim().toString().toLowerCase().replace(/\s+/g, '-').replace(/ - /g, "-").replace(/---/g, "-").replace(/\&/g, "and").replace(/;/g, "%3B").replace(/:/g, "%3A").replace(/"/g, "%22").replace(/'/g, "%27").replace(/,/g, "%2C").replace(/\?/g, "%3F").replace(/!/g, "%21").replace(/@/g, "%40").replace(/#/g, "%23").replace(/\$/g, "%24").replace(/&/g, "%26").replace(/\*/g, "%2A").replace(/=/g, "%3D").replace(/\+/g, "%2B").replace(/\(/g, "%28").replace(/\)/g, "%29").replace(/\[/g, "%5B").replace(/\]/g, "%5D").replace(/\\/g, "%5C").replace(/\//g, "%2F");
     return outputString;
-  }
+  };
   return (
     <div className="min-h-screen flex flex-col items-center justify-center">
       <SiteHead title="Ariadne Antipa's Calendar" description="AriadneAntipa.com is the official website for Ariadne Antipa - Pianist, Educator, and Conductor" url="calendar" />

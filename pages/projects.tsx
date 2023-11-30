@@ -4,16 +4,16 @@ import { getProjects } from '../lib/api';
 import SiteHead from '../components/SiteHead';
 import PageFooter from '../components/PageFooter';
 
-interface listingsProps {
-  listings: listingsInnerProps[]
+interface itemProps {
+  projects: projectInnerProps[]
 }
 
-interface listingsInnerProps {
+interface projectInnerProps {
   name: string,
   description: string
 }
 
-const calendarPage: NextPage<listingsProps> = ({ listings }) => {
+const calendarPage: NextPage<itemProps> = ({ projects }) => {
   function stringWithLineBreaks(inputString: string) {
     var outputString = inputString.toString().replace(/\n/g, "<br />");
     return outputString;
@@ -33,9 +33,9 @@ const calendarPage: NextPage<listingsProps> = ({ listings }) => {
           </section>
         </section>
 
-        <section id="listings">
+        <section id="project-items">
           <div className="mb-28 max-w-[1000px] w-full overflow-hidden flex flex-row flex-wrap gap-20 items-top justify-center text-center text-xl">
-            {listings
+            {projects
               .slice(1)
               .map(({ name, description }) => (
                 <article
@@ -59,11 +59,11 @@ const calendarPage: NextPage<listingsProps> = ({ listings }) => {
 export default calendarPage;
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const listings = await getProjects();
+  const projects = await getProjects();
 
   return {
     props: {
-      listings
+      projects
     }
   };
 };
