@@ -26,7 +26,7 @@ interface projectInnerProps {
 
 const homePage: NextPage<itemProps> = ({ events, projects }) => {
   function stringWithLineBreaks(inputString: string) {
-    var outputString = inputString.toString().replace(/\n/g, "<br />");
+    var outputString = inputString.toString().replace(/(?:\r\n|\r|\n)/g, '<br />');
     return outputString;
   };
   function stringWithUrlSupport(inputString: string) {
