@@ -27,7 +27,7 @@ const calendarPage: NextPage<itemProps> = ({ events, pastEvents }) => {
   };
   return (
     <div className="min-h-screen flex flex-col items-center justify-center">
-      <SiteHead title="Ariadne Antipa's Calendar" description="AriadneAntipa.com is the official website for Ariadne Antipa - Pianist, Educator, and Conductor" url="calendar" />
+      <SiteHead title="Ariadne Antipa's Calendar" description="AriadneAntipa.com is the official website for Ariadne Antipa - Pianist, Educator, and Conductor" url="calendar" image="" />
 
       <main className="bg-ariBlack text-ariWhite w-full flex flex-1 flex-col text-center items-center justify-center px-9">
         <section id="calendar">

@@ -6,7 +6,7 @@ import PageFooter from '../components/PageFooter';
 const photosPage: NextPage = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center">
-      <SiteHead title="Ariadne Antipa's Photos" description="AriadneAntipa.com is the official website for Ariadne Antipa - Pianist, Educator, and Conductor" url="photos" />
+      <SiteHead title="Ariadne Antipa's Photos" description="AriadneAntipa.com is the official website for Ariadne Antipa - Pianist, Educator, and Conductor" url="photos" image="" />
 
       <main className="bg-ariBlack text-ariWhite w-full flex flex-1 flex-col text-center items-center justify-center">
         <section id="photos">

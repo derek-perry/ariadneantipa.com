@@ -6,7 +6,7 @@ import LinkExternal from '../components/Links/LinkExternal';
 const contactPage: NextPage = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center">
-      <SiteHead title="Contact Ariadne Antipa" description="AriadneAntipa.com is the official website for Ariadne Antipa - Pianist, Educator, and Conductor" url="contact" />
+      <SiteHead title="Contact Ariadne Antipa" description="AriadneAntipa.com is the official website for Ariadne Antipa - Pianist, Educator, and Conductor" url="contact" image="" />
 
       <main className="bg-ariBlack text-ariWhite w-full flex flex-1 flex-col text-center items-center justify-center">
         <section id="contact">
