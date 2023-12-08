@@ -35,19 +35,25 @@ const projectsPage: NextPage<itemProps> = ({ projects }) => {
 
         <section id="project-items">
           <div className="mb-28 max-w-[1080px] w-full overflow-hidden flex flex-row flex-wrap gap-16 items-top justify-center text-center text-xl">
-            {projects.length > 1 ? projects
-              .slice(1)
-              .map(({ name, description }) => (
-                <article
-                  className="bg-[#1c1c1a] rounded-t-md overflow-hidden w-full max-w-full"
-                  key={name}
-                  id={stringWithUrlSupport(name)}
-                >
-                  <h2 className="bg-ariWhite text-ariBlack min-h-[88px] flex items-center justify-center px-5 mb-3 max-sm:hyphens-auto">{name}</h2>
-                  {description ? (<p className="my-4 max-sm:hyphens-auto text-left px-5" dangerouslySetInnerHTML={{ __html: stringWithLineBreaks(description) }} />) : ''}
-                </article>
-              ))
-             : (<article className="bg-[#1c1c1a] rounded-t-md overflow-hidden w-full max-w-full" id='no-projects'><h2 className="bg-ariWhite text-ariBlack min-h-[88px] flex items-center justify-center px-5 mb-3 max-sm:hyphens-auto">No Upcoming Events</h2></article>)}
+            {!projects ? (
+              <p className="bg-ariWhite text-ariBlack flex items-center justify-center max-sm:hyphens-auto text-2xl pb-5 px-5">Loading Projects...</p>
+            ) : (projects.length > 1 ?
+              (projects
+                .slice(1)
+                .map(({ name, description }) => (
+                  <article
+                    className="bg-[#1c1c1a] rounded-t-md overflow-hidden w-full max-w-full"
+                    key={name}
+                    id={stringWithUrlSupport(name)}
+                  >
+                    <h2 className="bg-ariWhite text-ariBlack min-h-[88px] flex items-center justify-center px-5 mb-3 max-sm:hyphens-auto">{name}</h2>
+                    {description ? (<p className="my-4 max-sm:hyphens-auto text-left px-5" dangerouslySetInnerHTML={{ __html: stringWithLineBreaks(description) }} />) : ''}
+                  </article>
+                )))
+              : (
+                <article className="bg-[#1c1c1a] rounded-t-md overflow-hidden w-full max-w-full" id='no-projects'><h3 className="bg-ariWhite text-ariBlack min-h-[88px] flex items-center justify-center font-bold text-3xl px-5 max-sm:hyphens-auto">No Projects</h3></article>
+              )
+            )}
           </div>
         </section>
       </main>

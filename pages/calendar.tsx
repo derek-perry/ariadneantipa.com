@@ -39,40 +39,50 @@ const calendarPage: NextPage<itemProps> = ({ events, pastEvents }) => {
         <section id="events">
           <h2 className="mb-4">Upcoming Events</h2>
           <div className="mb-28 max-w-[1080px] w-full overflow-hidden flex flex-row flex-wrap gap-16 items-top justify-center text-center text-xl">
-            {events.length > 1 ? events
-              .slice(1)
-              .map(({ name, datetime, price, description }) => (
-                <article
-                  className="bg-[#1c1c1a] rounded-t-md overflow-hidden w-full max-w-full"
-                  key={name}
-                  id={stringWithUrlSupport(name)}
-                >
-                  <h3 className="bg-ariWhite text-ariBlack min-h-[88px] flex items-center justify-center font-bold text-3xl px-5 max-sm:hyphens-auto">{name}</h3>
-                  <p className="pt-2 bg-ariWhite text-ariBlack max-sm:hyphens-auto text-2xl px-5" dangerouslySetInnerHTML={{ __html: stringWithLineBreaks(datetime) }} />
-                  <p className="bg-ariWhite text-ariBlack py-4 max-sm:hyphens-auto text-2xl px-5" dangerouslySetInnerHTML={{ __html: stringWithLineBreaks(price) }} />
-                  <p className="my-4 max-sm:hyphens-auto text-left px-5" dangerouslySetInnerHTML={{ __html: stringWithLineBreaks(description) }} />
-                </article>
-              ))
-             : (<article className="bg-[#1c1c1a] rounded-t-md overflow-hidden w-full max-w-full" id='no-events'><h3 className="bg-ariWhite text-ariBlack min-h-[88px] flex items-center justify-center font-bold text-3xl px-5 max-sm:hyphens-auto">No Upcoming Events</h3></article>)}
+            {!events ? (
+              <p className="bg-ariWhite text-ariBlack flex items-center justify-center max-sm:hyphens-auto text-2xl pb-5 px-5">Loading Upcoming Events...</p>
+            ) : (events.length > 1 ?
+              (events
+                .slice(1)
+                .map(({ name, datetime, price, description }) => (
+                  <article
+                    className="bg-[#1c1c1a] rounded-t-md overflow-hidden w-full max-w-full"
+                    key={name}
+                    id={stringWithUrlSupport(name)}
+                  >
+                    <h3 className="bg-ariWhite text-ariBlack min-h-[88px] flex items-center justify-center font-bold text-3xl px-5 max-sm:hyphens-auto">{name}</h3>
+                    <p className="pt-2 bg-ariWhite text-ariBlack max-sm:hyphens-auto text-2xl px-5" dangerouslySetInnerHTML={{ __html: stringWithLineBreaks(datetime) }} />
+                    <p className="bg-ariWhite text-ariBlack py-4 max-sm:hyphens-auto text-2xl px-5" dangerouslySetInnerHTML={{ __html: stringWithLineBreaks(price) }} />
+                    <p className="my-4 max-sm:hyphens-auto text-left px-5" dangerouslySetInnerHTML={{ __html: stringWithLineBreaks(description) }} />
+                  </article>
+                )))
+              : (
+                <article className="bg-[#1c1c1a] rounded-t-md overflow-hidden w-full max-w-full" id='no-events'><h3 className="bg-ariWhite text-ariBlack min-h-[88px] flex items-center justify-center font-bold text-3xl px-5 max-sm:hyphens-auto">No Upcoming Events</h3></article>
+              )
+            )}
           </div>
         </section>
 
         <section id="past">
           <h2 className="mb-4">Past Events</h2>
           <div className="mb-28 max-w-[1000px] w-full overflow-hidden flex flex-row flex-wrap gap-x-8 gap-y-8 items-top justify-center text-center text-xl">
-            {pastEvents.length > 1 ? pastEvents
-              .slice(1)
-              .map(({ name, datetime }) => (
-                <article
-                  className="bg-[#1c1c1a] rounded-md overflow-hidden w-full max-w-full lg:max-w-[500px]"
-                  key={name}
-                  id={stringWithUrlSupport(name)}
-                >
-                  <h3 className="bg-ariWhite text-ariBlack flex items-center justify-center font-bold text-3xl p-5 max-sm:hyphens-auto">{name}</h3>
-                  {datetime ? (<p className="bg-ariWhite text-ariBlack flex items-center justify-center max-sm:hyphens-auto text-2xl pb-5 px-5" dangerouslySetInnerHTML={{ __html: stringWithLineBreaks(datetime) }} />) : ''}
-                </article>
-              ))
-             : (<article className="bg-[#1c1c1a] rounded-md overflow-hidden w-full max-w-full lg:max-w-[500px]" id='no-past-events'><h3 className="bg-ariWhite text-ariBlack flex items-center justify-center font-bold text-3xl p-5 max-sm:hyphens-auto">No Past Events</h3></article>)}
+            {!pastEvents ? (
+              <p className="bg-ariWhite text-ariBlack flex items-center justify-center max-sm:hyphens-auto text-2xl pb-5 px-5">Loading Past Events...</p>
+            ) : (pastEvents.length > 1 ?
+              (pastEvents
+                .slice(1)
+                .map(({ name, datetime }) => (
+                  <article
+                    className="bg-[#1c1c1a] rounded-md overflow-hidden w-full max-w-full lg:max-w-[500px]"
+                    key={name}
+                    id={stringWithUrlSupport(name)}
+                  >
+                    <h3 className="bg-ariWhite text-ariBlack flex items-center justify-center font-bold text-3xl p-5 max-sm:hyphens-auto">{name}</h3>
+                    {datetime ? (<p className="bg-ariWhite text-ariBlack flex items-center justify-center max-sm:hyphens-auto text-2xl pb-5 px-5" dangerouslySetInnerHTML={{ __html: stringWithLineBreaks(datetime) }} />) : ''}
+                  </article>
+                )))
+              : ('')
+            )}
           </div>
         </section>
       </main>
