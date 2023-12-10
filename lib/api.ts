@@ -37,5 +37,5 @@ function cleanID(inputID: string | undefined) {
 
 export const getEvent = {
   get: (id?: string) =>
-    api.get<IGetEventResponse>(`${inputBaseURL}${inputSheetID}/values:batchGet?ranges=calendar${cleanID(id)}&valueRenderOption=FORMULA&prettyPrint=true&key=${inputAPIKey}`)
+    api.get<IGetEventResponse>(`${inputSheetID}/values:batchGet?ranges=calendar${cleanID(id)}&valueRenderOption=FORMULA&prettyPrint=true&key=${inputAPIKey}`)
 };
