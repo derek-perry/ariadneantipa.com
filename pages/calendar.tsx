@@ -112,7 +112,7 @@ const calendarPage: NextPage = () => {
           <h2 className="mb-4">Upcoming Events</h2>
           <div className="mb-28 max-w-[1080px] w-full overflow-hidden flex flex-row flex-wrap gap-16 items-top justify-center text-center text-xl">
             {isLoading ? (
-              <p>Loading Elements...</p>
+              <p>Loading Events...</p>
             ) : (events && events.length ?
               (events
                 .slice(1)
