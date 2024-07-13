@@ -94,9 +94,10 @@ const homePage: NextPage = () => {
       description='AriadneAntipa.com is the official website for Ariadne Antipa - Pianist, Educator, and Conductor'
       url=''
       image=''
-      classNameMain='px-0 pt-0 gap-24'
+      classNameMain='!px-0 !pt-0 gap-24'
     >
       <Hero />
+
       <section
         className='max-w-[500px] text-left px-8'
         id='contact'

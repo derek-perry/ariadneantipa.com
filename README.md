@@ -12,7 +12,7 @@ _[Website; NEXT.js; Tailwind CSS]_
 ---
 
 ### Website License Information
-**Copyright 2023 Ariadne Antipa TM**
+**Copyright 2023-2024 Ariadne Antipa TM**
 **Some rights reserved.**
 Use of [the code for Ariadne Antipa's website](https://github.com/derek-perry/ariadneantipa.com "Visit the GitHub for Ariadne Antipa's Website at github.com/derek-perry/ariadneantipa.com") is licensed under the [MIT License](https://mit.edu/~amini/LICENSE.md "View the Official MIT License at mit.edu/~amini/LICENSE.md") (see below for more details).
 

@@ -27,7 +27,7 @@ export type eventProps = {
 };
 export const apiGetEvent = {
   get: (id?: string) =>
-    api.get<IGetEventResponse>(`/events/${id ?? ''}?populate[Image][fields][0]=height&populate[Image][fields][1]=width&populate[Image][fields][2]=url&populate[Image][fields][3]=alternativeText`)
+    api.get<IGetEventResponse>(`events/${id ?? ''}?populate[Image][fields][0]=height&populate[Image][fields][1]=width&populate[Image][fields][2]=url&populate[Image][fields][3]=alternativeText`)
 };
 
 // Get Page
@@ -60,7 +60,7 @@ export interface pageProps {
 };
 export const apiGetPage = {
   get: (slug?: string) =>
-    api.get<IGetPageResponse>(`/pages?populate[Image][fields][0]=height&populate[Image][fields][1]=width&populate[Image][fields][2]=url&populate[Image][fields][3]=alternativeText&filters[Slug][$eq]=${slug ? (slug.toLowerCase()) : ''}`)
+    api.get<IGetPageResponse>(`pages?populate[Image][fields][0]=height&populate[Image][fields][1]=width&populate[Image][fields][2]=url&populate[Image][fields][3]=alternativeText&filters[Slug][$eq]=${slug ? (slug.toLowerCase()) : ''}`)
 };
 
 // Get Project
@@ -89,5 +89,5 @@ export interface projectProps {
 };
 export const apiGetProject = {
   get: (id?: string) =>
-    api.get<IGetProjectResponse>(`/projects/${id ?? ''}?populate[Image][fields][0]=height&populate[Image][fields][1]=width&populate[Image][fields][2]=url&populate[Image][fields][3]=alternativeText`)
+    api.get<IGetProjectResponse>(`projects/${id ?? ''}?populate[Image][fields][0]=height&populate[Image][fields][1]=width&populate[Image][fields][2]=url&populate[Image][fields][3]=alternativeText`)
 };

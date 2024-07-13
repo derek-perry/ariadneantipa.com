@@ -62,20 +62,25 @@ a {
   }
 }
 
-a:hover {
+a:active {
   text-decoration-line: none;
-  color: #69443B;
+  color: #9B9990;
 }
 
 a:focus {
   text-decoration-line: none;
-  color: #FFFFFF;
+  color: #AFADA1;
+}
+
+a:hover {
+  text-decoration-line: none;
+  color: #BCB9AD;
 }
 
 .button {
   text-decoration-line: none;
-  color: #FFFFFF;
-  background-color: #C5A974;
+  color: #111214;
+  background-color: #DEDBCD;
   padding-top: 2rem;
   padding-bottom: 2rem;
   padding-left: 2.5rem;
@@ -88,14 +93,20 @@ a:focus {
   transition-duration: 100ms;
 }
 
-.button:hover {
+.button:active {
   text-decoration-line: none;
-  color: #FFFFFF;
-  background-color: #69443B;
+  color: #111214;
+  background-color: #9B9990;
 }
 
 .button:focus {
   text-decoration-line: none;
   color: #111214;
-  background-color: #FFFFFF;
+  background-color: #AFADA1;
+}
+
+.button:hover {
+  text-decoration-line: none;
+  color: #111214;
+  background-color: #BCB9AD;
 }

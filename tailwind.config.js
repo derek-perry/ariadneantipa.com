@@ -10,8 +10,9 @@ module.exports = {
       colors: {
           ariBlack: '#111214',
           ariWhite: '#DEDBCD',
-          ariBrown: '#2D2014',
-          ariRed: '#69443B',
+          ariWhiteHover: '#BCB9AD',
+          ariWhiteFocus: '#AFADA1',
+          ariWhiteActive: '#9B9990',
           ariGold: '#C5A974',
       }
     },
