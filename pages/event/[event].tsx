@@ -1,23 +1,34 @@
 import { GetServerSideProps, NextPage } from 'next';
-import { getEvent, eventInnerProps } from '../../lib/api';
-import SiteHead from '../../components/SiteHead';
-import PageFooter from '../../components/PageFooter';
+import { ToWords } from 'to-words';
+import { apiGetEvent, eventProps } from '../../lib/api';
+import Page from '../../components/Page';
+import LinkInternal from '../../components/Links/LinkInternal';
 
-type eventProps = {
-  event: eventInnerProps
+const toWords = new ToWords({
+  localeCode: 'en-US',
+  converterOptions: {
+    currency: false,
+    ignoreDecimal: false,
+    ignoreZeroCurrency: false
+  }
+});
+
+interface IEventPageProps {
+  event: eventProps;
+  prevUrl: string | undefined;
 };
 
-const eventPage: NextPage<eventProps> = ({ event }) => {
-  function makeSlug(nameDirty: string) {
-    if (nameDirty == null || nameDirty == undefined || nameDirty == '') {
-      var slug = '';
-    }
-    else {
-      var nameClean = nameDirty.trim().toString().toLowerCase().replace(/\s+/g, '-').replace(/ - /g, "-").replace(/---/g, "-").replace(/\&/g, "and").replace(/;/g, "%3B").replace(/:/g, "%3A").replace(/"/g, "%22").replace(/'/g, "%27").replace(/,/g, "%2C").replace(/\?/g, "%3F").replace(/!/g, "%21").replace(/@/g, "%40").replace(/#/g, "%23").replace(/\$/g, "%24").replace(/&/g, "%26").replace(/\*/g, "%2A").replace(/=/g, "%3D").replace(/\+/g, "%2B").replace(/\(/g, "%28").replace(/\)/g, "%29").replace(/\[/g, "%5B").replace(/\]/g, "%5D").replace(/\\/g, "%5C").replace(/\//g, "%2F");
-      var slug = nameClean;
-    }
-    return slug;
+const EventPage: NextPage<IEventPageProps> = ({ event, prevUrl }) => {
+  const checkNumberName = (dirtyName: string) => {
+    let parsedName = parseInt(dirtyName);
+    if (isNaN(parsedName)) {
+      return dirtyName;
+    } else {
+      let words = toWords.convert(parsedName);
+      return encodeURIComponent(words);
+    };
   };
+
   function stringWithLineBreaks(inputString: string) {
     var outputString = inputString.toString().replace(/(?:\r\n|\r|\n)/g, '<br />');
     return outputString;
@@ -25,44 +36,85 @@ const eventPage: NextPage<eventProps> = ({ event }) => {
 
   return (
     <>
-      <div className="min-h-screen flex flex-col items-center justify-center">
-        <SiteHead title={`${'name'} - Ariadne Antipa`} description="AriadneAntipa.com is the official website for Ariadne Antipa - Pianist, Educator, and Conductor" url={`event/${makeSlug('name')}`} image="" />
-
-        <main className="bg-ariBlack text-ariWhite w-full flex flex-1 flex-col text-center items-center justify-center px-9">
+      {event && event.attributes.Name ? (
+        <Page
+          title={`${event.attributes.Name} - Ariadne Antipa`}
+          description={event.attributes.Description ? event.attributes.Description : 'AriadneAntipa.com is the official website for Ariadne Antipa - Pianist, Educator, and Conductor'}
+          url={`event/${checkNumberName(event.attributes.Name)}`}
+          image={event.attributes.Image?.data ? event.attributes.Image.data?.attributes.url : ``}
+        >
           <article
-            className="overflow-hidden w-full max-w-[1000px]"
-            id={makeSlug('name')}
+            className='max-w-[1000px]'
+            id={checkNumberName(event.attributes.Name)}
           >
-            <h1 className="px-5 mb-4 max-sm:hyphens-auto">{'name'}</h1>
-            <p className="pt-2 px-5 max-sm:hyphens-auto text-2xl" dangerouslySetInnerHTML={{ __html: stringWithLineBreaks('datetime') }} />
-            <p className="py-4 px-5 max-sm:hyphens-auto text-2xl" dangerouslySetInnerHTML={{ __html: stringWithLineBreaks('price') }} />
-            <p className="my-4 px-5 max-sm:hyphens-auto text-left" dangerouslySetInnerHTML={{ __html: stringWithLineBreaks('description') }} />
+            {prevUrl && (prevUrl === 'http://localhost:3000/calendar' || prevUrl === 'https://ariadneantipa.netlify.app/calendar' || prevUrl === 'https://ariadneantipa.com/calendar') ? (
+              <div
+                className='mb-8'
+              >
+                <LinkInternal
+                  title='Back to Calendar'
+                  href='calendar'
+                >
+                  &larr; Back to Calendar
+                </LinkInternal>
+              </div>
+            ) : ''}
+            {event.attributes.Image?.data ? (
+              <div className='mb-8 min-w-auto'>
+                <img
+                  alt={event.attributes.Image?.data?.attributes.alternativeText}
+                  src={event.attributes.Image?.data?.attributes.url ? event.attributes.Image?.data?.attributes.url : ''}
+                  height={event.attributes.Image?.data?.attributes.height ? event.attributes.Image?.data?.attributes.height : 0}
+                  width={event.attributes.Image?.data?.attributes.width ? event.attributes.Image?.data?.attributes.width : 0}
+                />
+              </div>
+            ) : ''}
+            <h1 className='mb-4 max-sm:hyphens-auto'>{event.attributes.Name}</h1>
+            <p className='mt-2 max-sm:hyphens-auto text-2xl' dangerouslySetInnerHTML={{ __html: stringWithLineBreaks(event.attributes.Date) }} />
+            <p className='my-4 max-sm:hyphens-auto text-2xl' dangerouslySetInnerHTML={{ __html: stringWithLineBreaks(event.attributes.Price) }} />
+            <p className='mt-4 max-sm:hyphens-auto text-left' dangerouslySetInnerHTML={{ __html: stringWithLineBreaks(event.attributes.Description) }} />
           </article>
-        </main>
-
-        <PageFooter />
-      </div>
+        </Page>
+      ) :
+        (
+          <Page
+            title='Event Not Found - Ariadne Antipa'
+            description='AriadneAntipa.com is the official website for Ariadne Antipa - Pianist, Educator, and Conductor'
+            url='event/not-found'
+            image=''
+          >
+            <article
+              className='max-w-[680px]'
+              id='event-not-found'
+            >
+              <h1 className='mb-4 max-sm:hyphens-auto'>Error 404: Event Not Found</h1>
+              <p className='mt-2 max-sm:hyphens-auto text-2xl'>The event you are looking for has moved, is no longer available, has been archived, or was not valid.</p>
+            </article>
+          </Page>
+        )}
     </>
   );
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
-    const responseEvent = await getEvent.get(
+    const response = await apiGetEvent.get(
       (context?.query?.id as string) || '0'
     );
     return {
       props: {
-        event: responseEvent
+        event: response.data.data,
+        prevUrl: context.req.headers.referer ?? ''
       }
     };
   } catch (e) {
     return {
       props: {
-        event: null
+        event: null,
+        prevUrl: context.req.headers.referer ?? ''
       }
     };
-  }
+  };
 };
 
-export default eventPage;
+export default EventPage;

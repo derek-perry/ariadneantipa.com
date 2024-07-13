@@ -32,7 +32,7 @@ const SiteHead: FC<ISiteHeadProps> = ({
       <meta property='og:description' content={descriptionValid} />
       <meta name='description' content={descriptionValid} />
       <meta property='og:url' content={siteUrl + '/' + urlValid} />
-      <meta property="og:site_name" content="Ariadne Antipa" />
+      <meta property='og:site_name' content='Ariadne Antipa' />
       <meta property='og:image' content={imageValid} />
       <meta property='og:image:width' content='1920' />
       <meta property='og:image:height' content='1080' />
@@ -48,8 +48,8 @@ const SiteHead: FC<ISiteHeadProps> = ({
       <link rel='icon' href={siteUrl + '/favicon.ico'} />
       <link rel='mask-icon' href='/safari-pinned-tab.svg' color='#C5A974' />
       <link rel='manifest' href={siteUrl + '/manifest.webmanifest'} />
-      <meta name="apple-mobile-web-app-title" content="Ariadne Antipa" />
-      <meta name="application-name" content="Ariadne Antipa" />
+      <meta name='apple-mobile-web-app-title' content='Ariadne Antipa' />
+      <meta name='application-name' content='Ariadne Antipa' />
       <meta name='msapplication-TileColor' content='#C5A974' />
       <meta name='msapplication-TileImage' content={siteUrl + '/mstile-144x144.png'} />
       <meta name='theme-color' content='#111214' />

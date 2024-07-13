@@ -1,42 +1,87 @@
 import React from 'react';
+import { useEffect, useState } from 'react';
 import type { NextPage } from 'next';
-import SiteHead from '../components/SiteHead';
-import PageFooter from '../components/PageFooter';
+import api from '../lib/config';
+import { projectProps } from '../lib/api';
+import Page from '../components/Page';
+import ButtonInternal from '../components/Buttons/ButtonInternal';
 
-interface projectProps {
-  name: string,
-  description: string
-};
+const calendarPage: NextPage = () => {
+  const [projects, setProjects] = useState<projectProps[]>([]);
+  const [isLoadingProjects, setIsLoadingProjects] = useState(false);
 
-const projectsPage: NextPage = () => {
-  function stringWithLineBreaks(inputString: string) {
-    var outputString = inputString.toString().replace(/(?:\r\n|\r|\n)/g, '<br />');
-    return outputString;
-  };
-  function stringWithUrlSupport(inputString: string) {
-    var outputString = inputString.trim().toString().toLowerCase().replace(/\s+/g, '-').replace(/ - /g, "-").replace(/---/g, "-").replace(/\&/g, "and").replace(/;/g, "%3B").replace(/:/g, "%3A").replace(/"/g, "%22").replace(/'/g, "%27").replace(/,/g, "%2C").replace(/\?/g, "%3F").replace(/!/g, "%21").replace(/@/g, "%40").replace(/#/g, "%23").replace(/\$/g, "%24").replace(/&/g, "%26").replace(/\*/g, "%2A").replace(/=/g, "%3D").replace(/\+/g, "%2B").replace(/\(/g, "%28").replace(/\)/g, "%29").replace(/\[/g, "%5B").replace(/\]/g, "%5D").replace(/\\/g, "%5C").replace(/\//g, "%2F");
-    return outputString;
-  };
+  useEffect(
+    () => {
+      const getProjects = async () => {
+        try {
+          setIsLoadingProjects(true);
+          const fetchedData = [];
+          const { data } = await api.get(
+            'projects?pagination[page]=1&pagination[pageSize]=10&sort[0]=id:desc'
+          );
+          fetchedData.push(...data?.data);
+          if (
+            data?.meta?.pagination &&
+            fetchedData.length > 0 &&
+            data?.meta?.pagination.page < data?.meta?.pagination.pageCount
+          ) {
+            const { page, pageCount } = data?.meta?.pagination;
+            for (let i = page + 1; i <= pageCount; i++) {
+              let response = await api.get(
+                `projects?pagination[page]=${i}&pagination[pageSize]=10&sort[0]=id:desc`
+              );
+              fetchedData.push(...response.data.data);
+            };
+          };
+          setProjects(fetchedData);
+        } catch (error: any) {
+          if (error?.response?.data) {
+            console.error(error?.response?.data.error?.message);
+          };
+        } finally {
+          setIsLoadingProjects(false);
+        };
+      };
+
+      getProjects();
+    }, []
+  );
+
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center">
-      <SiteHead title="Ariadne Antipa's Projects" description="AriadneAntipa.com is the official website for Ariadne Antipa - Pianist, Educator, and Conductor" url="projects" image="" />
-
-      <main className="bg-ariBlack text-ariWhite w-full flex flex-1 flex-col text-center items-center justify-center px-9">
-        <section id="projects">
-          <section className="max-md:mt-10 md:mt-20 mb-10 max-w-[1000px] text-left">
-            <h1>Projects</h1>
-          </section>
-        </section>
-
-        {/* <section id="project-items">
-          <div className="mb-28 max-w-[1080px] w-full overflow-hidden flex flex-row flex-wrap gap-16 items-top justify-center text-center text-xl">
-          </div>
-        </section> */}
-      </main>
-
-      <PageFooter />
-    </div>
+    <Page
+      title='Projects - Ariadne Antipa'
+      description='AriadneAntipa.com is the official website for Ariadne Antipa - Pianist, Educator, and Conductor'
+      url='projects'
+      image=''
+    >
+      <>
+        <h1>Projects</h1>
+        {isLoadingProjects ? (
+          <h2 className='mt-12'>Loading Projects...</h2>
+        ) : (
+          (projects ? (
+            <section
+              className='mt-12 flex flex-col gap-12 justify-center align-middle items-center text-center'
+              id='projects-list'
+            >
+              {projects.map((project) => (
+                <ButtonInternal
+                  className='max-w-[600px] w-full'
+                  href={`project/${project.attributes.Name}?id=${project.id}`}
+                  title={project.attributes.Name}>
+                  <article
+                    key={project.attributes.Name}
+                  >
+                    <h3 className='py-2 font-bold text-3xl max-sm:hyphens-auto'>{project.attributes.Name}</h3>
+                  </article>
+                </ButtonInternal>
+              ))}
+            </section>
+          ) : '')
+        )}
+      </>
+    </Page>
   );
 };
 
-export default projectsPage;
+export default calendarPage;

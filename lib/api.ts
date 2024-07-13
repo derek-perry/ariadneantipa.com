@@ -1,41 +1,93 @@
-import axios from 'axios';
-const inputBaseURL = process.env.NEXT_PUBLIC_API_URL ? process.env.NEXT_PUBLIC_API_URL : '';
-const inputAPIKey = process.env.NEXT_PUBLIC_SHEET_API ? process.env.NEXT_PUBLIC_SHEET_API : '';
-const inputSheetID = process.env.NEXT_PUBLIC_SHEET_ID ? process.env.NEXT_PUBLIC_SHEET_ID : '';
+import api from './config';
 
-const api = axios.create(
-  {
-    baseURL: inputBaseURL
-  }
-);
-
-export interface eventInnerProps {
-  spreadsheetId: string,
-  valueRanges: eventValueRangesProps[]
-};
-
-export interface eventValueRangesProps {
-  range: string,
-  majorDimension: string,
-  values: string[]
-};
-
-interface IGetEventResponse {
+// Get Event
+export interface IGetEventResponse {
   status: number;
-  data: eventInnerProps;
+  data: eventProps;
 };
-
-function cleanID(inputID: string | undefined) {
-  var idRange = '';
-  if (inputID == null || inputID == undefined || inputID == '') {
-    idRange = ('!A' + inputID + ':D' + inputID)
-  }
-  else {
-    idRange = ('')
-  }
+export type eventProps = {
+  id: number;
+  attributes: {
+    Name: string;
+    Date: string;
+    Price: string;
+    Description: string;
+    Image: {
+      data: {
+        attributes: {
+          name: string;
+          alternativeText: string;
+          url: string;
+          width: number;
+          height: number;
+        };
+      } | null;
+    };
+  };
 };
-
-export const getEvent = {
+export const apiGetEvent = {
   get: (id?: string) =>
-    api.get<IGetEventResponse>(`${inputSheetID}/values:batchGet?ranges=calendar${cleanID(id)}&valueRenderOption=FORMULA&prettyPrint=true&key=${inputAPIKey}`)
+    api.get<IGetEventResponse>(`/events/${id ?? ''}?populate[Image][fields][0]=height&populate[Image][fields][1]=width&populate[Image][fields][2]=url&populate[Image][fields][3]=alternativeText`)
+};
+
+// Get Page
+export interface IGetPageResponse {
+  status: number;
+  data: pagesProps;
+};
+export interface pagesProps {
+  data: pageProps[] | null;
+};
+export interface pageProps {
+  id: number;
+  attributes: {
+    Title: string;
+    Slug: string;
+    Content: string;
+    SEODescription: string;
+    Image: {
+      data: {
+        attributes: {
+          name: string;
+          alternativeText: string;
+          url: string;
+          width: number;
+          height: number;
+        };
+      } | null;
+    };
+  };
+};
+export const apiGetPage = {
+  get: (slug?: string) =>
+    api.get<IGetPageResponse>(`/pages?populate[Image][fields][0]=height&populate[Image][fields][1]=width&populate[Image][fields][2]=url&populate[Image][fields][3]=alternativeText&filters[Slug][$eq]=${slug ? (slug.toLowerCase()) : ''}`)
+};
+
+// Get Project
+export interface IGetProjectResponse {
+  status: number;
+  data: projectProps;
+};
+export interface projectProps {
+  id: number;
+  attributes: {
+    Name: string;
+    Description: string;
+    SEODescription: string;
+    Image: {
+      data: {
+        attributes: {
+          name: string;
+          alternativeText: string;
+          url: string;
+          width: number;
+          height: number;
+        };
+      } | null;
+    };
+  };
+};
+export const apiGetProject = {
+  get: (id?: string) =>
+    api.get<IGetProjectResponse>(`/projects/${id ?? ''}?populate[Image][fields][0]=height&populate[Image][fields][1]=width&populate[Image][fields][2]=url&populate[Image][fields][3]=alternativeText`)
 };

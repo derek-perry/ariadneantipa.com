@@ -30,6 +30,11 @@ const nextConfig = {
         "permanent": true
       },
       {
+        "source": "/me",
+        "destination": "/about",
+        "permanent": true
+      },
+      {
         "source": "/bio",
         "destination": "/about",
         "permanent": true
@@ -85,7 +90,52 @@ const nextConfig = {
         "permanent": true
       },
       {
+        "source": "/flight88",
+        "destination": "/project/flight88?id=1",
+        "permanent": true
+      },
+      {
+        "source": "/flight-88",
+        "destination": "/project/flight88?id=1",
+        "permanent": true
+      },
+      {
+        "source": "/flight%2088",
+        "destination": "/project/flight88?id=1",
+        "permanent": true
+      },
+      {
+        "source": "/flight 88",
+        "destination": "/project/flight88?id=1",
+        "permanent": true
+      },
+      {
+        "source": "/between-you-and-i",
+        "destination": "/project/between-you-and-i?id=2",
+        "permanent": true
+      },
+      {
+        "source": "/betweenyouandi",
+        "destination": "/project/between-you-and-i?id=2",
+        "permanent": true
+      },
+      {
+        "source": "/between%20you%20and%20i",
+        "destination": "/project/between-you-and-i?id=2",
+        "permanent": true
+      },
+      {
+        "source": "/between you and i",
+        "destination": "/project/between-you-and-i?id=2",
+        "permanent": true
+      },
+      {
         "source": "/teachingphilosophy",
+        "destination": "/teaching-philosophy",
+        "permanent": true
+      },
+      {
+        "source": "/philosophy",
         "destination": "/teaching-philosophy",
         "permanent": true
       },

@@ -1,59 +1,166 @@
 import React from 'react';
+import { useEffect, useState } from 'react';
 import type { NextPage } from 'next';
-import SiteHead from '../components/SiteHead';
+import api from '../lib/config';
+import { eventProps, projectProps } from '../lib/api';
+import Page from '../components/Page';
 import Hero from '../components/Hero';
-import PageFooter from '../components/PageFooter';
 import LinkExternal from '../components/Links/LinkExternal';
-import LinkInternal from '../components/Links/LinkInternal';
-
-interface eventProps {
-  name: string,
-  datetime: string
-};
-
-interface projectProps {
-  name: string
-};
+import ButtonInternal from '../components/Buttons/ButtonInternal';
 
 const homePage: NextPage = () => {
+  const [upcomingEvents, setUpcomingEvents] = useState<eventProps[]>([]);
+  const [isLoadingUpcomingEvents, setIsLoadingUpcomingEvents] = useState(false);
+  const [projects, setProjects] = useState<projectProps[]>([]);
+  const [isLoadingProjects, setIsLoadingProjects] = useState(false);
+
+  useEffect(
+    () => {
+      const getUpcomingEvents = async () => {
+        try {
+          setIsLoadingUpcomingEvents(true);
+          const fetchedData = [];
+          const { data } = await api.get(
+            'events?pagination[page]=1&pagination[pageSize]=10&sort[0]=id:desc'
+          );
+          fetchedData.push(...data?.data);
+          if (
+            data?.meta?.pagination &&
+            fetchedData.length > 0 &&
+            data?.meta?.pagination.page < data?.meta?.pagination.pageCount
+          ) {
+            const { page, pageCount } = data?.meta?.pagination;
+            for (let i = page + 1; i <= pageCount; i++) {
+              let response = await api.get(
+                `events?pagination[page]=${i}&pagination[pageSize]=10&sort[0]=id:desc`
+              );
+              fetchedData.push(...response.data.data);
+            };
+          };
+          setUpcomingEvents(fetchedData);
+        } catch (error: any) {
+          if (error?.response?.data) {
+            console.error(error?.response?.data.error?.message);
+          };
+        } finally {
+          setIsLoadingUpcomingEvents(false);
+        };
+      };
+
+      const getProjects = async () => {
+        try {
+          setIsLoadingProjects(true);
+          const fetchedData = [];
+          const { data } = await api.get(
+            'projects?pagination[page]=1&pagination[pageSize]=10&sort[0]=id:desc'
+          );
+          fetchedData.push(...data?.data);
+          if (
+            data?.meta?.pagination &&
+            fetchedData.length > 0 &&
+            data?.meta?.pagination.page < data?.meta?.pagination.pageCount
+          ) {
+            const { page, pageCount } = data?.meta?.pagination;
+            for (let i = page + 1; i <= pageCount; i++) {
+              let response = await api.get(
+                `projects?pagination[page]=${i}&pagination[pageSize]=10&sort[0]=id:desc`
+              );
+              fetchedData.push(...response.data.data);
+            };
+          };
+          setProjects(fetchedData);
+        } catch (error: any) {
+          if (error?.response?.data) {
+            console.error(error?.response?.data.error?.message);
+          };
+        } finally {
+          setIsLoadingProjects(false);
+        };
+      };
+
+      getUpcomingEvents();
+      getProjects();
+    }, []
+  );
+
   function stringWithLineBreaks(inputString: string) {
-    var outputString = inputString.toString().replace(/(?:\r\n|\r|\n)/g, '<br />');
+    var outputString = inputString?.toString().replace(/(?:\r\n|\r|\n)/g, '<br />');
     return outputString;
   };
-  function stringWithUrlSupport(inputString: string) {
-    var outputString = inputString.trim().toString().toLowerCase().replace(/\s+/g, '-').replace(/ - /g, "-").replace(/---/g, "-").replace(/\&/g, "and").replace(/;/g, "%3B").replace(/:/g, "%3A").replace(/"/g, "%22").replace(/'/g, "%27").replace(/,/g, "%2C").replace(/\?/g, "%3F").replace(/!/g, "%21").replace(/@/g, "%40").replace(/#/g, "%23").replace(/\$/g, "%24").replace(/&/g, "%26").replace(/\*/g, "%2A").replace(/=/g, "%3D").replace(/\+/g, "%2B").replace(/\(/g, "%28").replace(/\)/g, "%29").replace(/\[/g, "%5B").replace(/\]/g, "%5D").replace(/\\/g, "%5C").replace(/\//g, "%2F");
-    return outputString;
-  };
+
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center">
-      <SiteHead title="Ariadne Antipa" description="AriadneAntipa.com is the official website for Ariadne Antipa - Pianist, Educator, and Conductor" url="" image="" />
+    <Page
+      title='Ariadne Antipa'
+      description='AriadneAntipa.com is the official website for Ariadne Antipa - Pianist, Educator, and Conductor'
+      url=''
+      image=''
+      classNameMain='px-0 pt-0 gap-24'
+    >
       <Hero />
+      <section
+        className='max-w-[500px] text-left px-8'
+        id='contact'
+      >
+        <p>If you’d like to book Ariadne Antipa to play for your event, inquire about piano lessons, or have any other questions, send an email to <LinkExternal className='max-sm:break-all' href='mailto:contact@ariadneantipa.com' title='Contact Ariadne Antipa via Email at Contact@AriadneAntipa.com'>Contact@AriadneAntipa.com</LinkExternal></p>
+      </section>
 
-      <main className="bg-ariBlack text-ariWhite w-full flex flex-1 flex-col text-center items-center justify-center">
-        <section id="contact">
-          <div className="px-9 max-md:mt-10 md:mt-20 mb-28 max-w-[1000px] text-left">
-            <h1 className="mb-4 text-4xl max-sm:break-all">Ariadne Antipa</h1>
-            <p className="text-xl">If you’d like to book Ariadne Antipa to play for your event, inquire about piano lessons, or have any other questions, send an email to <LinkExternal className="max-sm:break-all" href="mailto:contact@ariadneantipa.com" title="Contact Ariadne Antipa via Email at Contact@AriadneAntipa.com">Contact@AriadneAntipa.com</LinkExternal></p>
-          </div>
-        </section>
+      <section id='eventsandprojects' className='mb-12 px-8 flex flex-row flex-wrap gap-8 items-top justify-center text-center'>
+        {isLoadingUpcomingEvents ? (
+          <h2>Loading Upcoming Events...</h2>
+        ) : (
+          (upcomingEvents ? (
+            <section>
+              <h2 className='mb-4' id='upcoming-events'>Upcoming Events</h2>
+              <div
+                className='flex flex-col gap-4 justify-center align-middle items-center text-center'
+                id='events-list'
+              >
+                {upcomingEvents.map((upcomingEvent) => (
+                  <ButtonInternal
+                    className='max-w-[600px] w-full'
+                    href={`event/${upcomingEvent.attributes.Name}?id=${upcomingEvent.id}`}
+                    title={upcomingEvent.attributes.Name}>
+                    <article
+                      key={upcomingEvent.attributes.Name}
+                    >
+                      <h3 className='py-2 font-bold text-3xl max-sm:hyphens-auto'>{upcomingEvent.attributes.Name}</h3>
+                      {upcomingEvent.attributes.Price ? (<p className='text-2xl max-sm:hyphens-auto' dangerouslySetInnerHTML={{ __html: stringWithLineBreaks(upcomingEvent.attributes.Price) }} />) : ''}
+                    </article>
+                  </ButtonInternal>
+                ))}
+              </div>
+            </section>
+          ) : '')
+        )}
 
-        {/* <section id="eventsandprojects" className="mb-28 flex flex-row flex-wrap gap-x-8 gap-y-20 items-top justify-center text-center">
-          <section id="events">
-            <h2 className="mb-4">Upcoming Events</h2>
-            <div className="max-w-[520px] w-full overflow-hidden flex flex-row flex-wrap gap-x-8 gap-y-8 items-top justify-center text-center text-xl">
-            </div>
-          </section>
-
-          <section id="projects">
-            <h2 className="mb-4">Projects</h2>
-            <div className="max-w-[520px] w-full overflow-hidden flex flex-row flex-wrap gap-8 items-top justify-center text-center text-xl">
-            </div>
-          </section>
-        </section> */}
-      </main>
-
-      <PageFooter />
-    </div >
+        {isLoadingProjects ? (
+          <h2>Loading Projects...</h2>
+        ) : (
+          (projects ? (
+            <section>
+              <h2 className='mb-4' id='projects'>Projects</h2>
+              <div
+                className='flex flex-col gap-4 justify-center align-middle items-center text-center'
+                id='projects-list'
+              >
+                {projects.map((project) => (
+                  <ButtonInternal
+                    className='max-w-[600px] w-full'
+                    href={`project/${project.attributes.Name}?id=${project.id}`}
+                    title={project.attributes.Name}>
+                    <article
+                      key={project.attributes.Name}
+                    >
+                      <h3 className='py-2 font-bold text-3xl max-sm:hyphens-auto'>{project.attributes.Name}</h3>
+                    </article>
+                  </ButtonInternal>
+                ))}
+              </div>
+            </section>
+          ) : '')
+        )}
+      </section>
+    </Page>
   );
 };
 
