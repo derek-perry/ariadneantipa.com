@@ -4,9 +4,12 @@ import type { NextPage } from 'next';
 import api from '../lib/config';
 import { eventProps } from '../lib/api';
 import Page from '../components/Page';
-import ButtonInternal from '../components/Buttons/ButtonInternal';
+import ItemEvent from '../components/Items/ItemEvent';
 
 const calendarPage: NextPage = () => {
+  const currentDateTime = new Date();
+  currentDateTime.setHours(currentDateTime.getHours() - 4);
+  const currentDateTimeISO = currentDateTime.toISOString();
   const [upcomingEvents, setUpcomingEvents] = useState<eventProps[]>([]);
   const [pastEvents, setPastEvents] = useState<eventProps[]>([]);
   const [isLoadingUpcomingEvents, setIsLoadingUpcomingEvents] = useState(false);
@@ -19,7 +22,7 @@ const calendarPage: NextPage = () => {
           setIsLoadingUpcomingEvents(true);
           const fetchedData = [];
           const { data } = await api.get(
-            'events?pagination[page]=1&pagination[pageSize]=10&sort[0]=id:desc'
+            `events?pagination[page]=1&pagination[pageSize]=10&filters[Day][StartTime][$gte]=${currentDateTimeISO}&sort[0]=id:desc&populate[Day][fields][4]=StartTime&populate[Day][fields][5]=EndTime&populate[Day][fields][6]=Price`
           );
           fetchedData.push(...data?.data);
           if (
@@ -30,11 +33,41 @@ const calendarPage: NextPage = () => {
             const { page, pageCount } = data?.meta?.pagination;
             for (let i = page + 1; i <= pageCount; i++) {
               let response = await api.get(
-                `events?pagination[page]=${i}&pagination[pageSize]=10&sort[0]=id:desc`
+                `events?pagination[page]=${i}&pagination[pageSize]=10&filters[Day][StartTime][$gte]=${currentDateTimeISO}&sort[0]=id:desc&populate[Day][fields][4]=StartTime&populate[Day][fields][5]=EndTime&populate[Day][fields][6]=Price`
               );
               fetchedData.push(...response.data.data);
             };
           };
+          fetchedData.filter((item, index, self) =>
+            index === self.findIndex((t) => (
+              t.id === item.id
+            ))
+          );
+          fetchedData.forEach((event: eventProps) => {
+            if (event.attributes.Day) {
+              event.attributes.Day = event.attributes.Day.filter((day: any) => {
+                const dayStartTime = new Date(day.StartTime).getTime();
+                return dayStartTime >= new Date(currentDateTimeISO).getTime();
+              });
+            };
+          });
+          fetchedData.forEach((event: eventProps) => {
+            if (event.attributes.Day && event.attributes.Day.length) {
+              event.attributes.Day.sort((a, b) => {
+                const aStartTime = new Date(a.StartTime).getTime();
+                const bStartTime = new Date(b.StartTime).getTime();
+                return aStartTime - bStartTime;
+              });
+            };
+          });
+          fetchedData.sort((a, b) => {
+            if ((a.attributes.Day && a.attributes.Day.length) || (b.attributes.Day && b.attributes.Day.length)) {
+              const aStartTime = new Date(a.attributes.Day[0]?.StartTime).getTime();
+              const bStartTime = new Date(b.attributes.Day[0]?.StartTime).getTime();
+              return aStartTime - bStartTime;
+            }
+            return 0;
+          });
           setUpcomingEvents(fetchedData);
         } catch (error: any) {
           if (error?.response?.data) {
@@ -50,7 +83,7 @@ const calendarPage: NextPage = () => {
           setIsLoadingPastEvents(true);
           const fetchedData = [];
           const { data } = await api.get(
-            'events?pagination[page]=1&pagination[pageSize]=10&sort[0]=id:desc'
+            `events?pagination[page]=1&pagination[pageSize]=10&sort[0]=id:desc&populate[Day][fields][4]=StartTime&populate[Day][fields][5]=EndTime&populate[Day][fields][6]=Price`
           );
           fetchedData.push(...data?.data);
           if (
@@ -61,12 +94,42 @@ const calendarPage: NextPage = () => {
             const { page, pageCount } = data?.meta?.pagination;
             for (let i = page + 1; i <= pageCount; i++) {
               let response = await api.get(
-                `events?pagination[page]=${i}&pagination[pageSize]=10&sort[0]=id:desc`
+                `events?pagination[page]=${i}&pagination[pageSize]=10&sort[0]=id:desc&populate[Day][fields][4]=StartTime&populate[Day][fields][5]=EndTime&populate[Day][fields][6]=Price`
               );
               fetchedData.push(...response.data.data);
             };
           };
-          setPastEvents(fetchedData);
+          fetchedData.filter((item, index, self) =>
+            index === self.findIndex((t) => (
+              t.id === item.id
+            ))
+          );
+          const fetchedDataClean = fetchedData.filter((event: eventProps) => {
+            if (event.attributes.Day && event.attributes.Day.length) {
+              return event.attributes.Day.every((day: any) => {
+                return new Date(day.StartTime).getTime() < new Date(currentDateTimeISO).getTime();
+              });
+            };
+            return false;
+          });
+          fetchedDataClean.forEach((event: eventProps) => {
+            if (event.attributes.Day && event.attributes.Day.length) {
+              event.attributes.Day.sort((a, b) => {
+                const aStartTime = new Date(a.StartTime).getTime();
+                const bStartTime = new Date(b.StartTime).getTime();
+                return aStartTime - bStartTime;
+              });
+            };
+          });
+          fetchedDataClean.sort((a, b) => {
+            if ((a.attributes.Day && a.attributes.Day.length) || (b.attributes.Day && b.attributes.Day.length)) {
+              const aStartTime = new Date(a.attributes.Day[0]?.StartTime).getTime();
+              const bStartTime = new Date(b.attributes.Day[0]?.StartTime).getTime();
+              return bStartTime - aStartTime;
+            }
+            return 0;
+          });
+          setPastEvents(fetchedDataClean);
         } catch (error: any) {
           if (error?.response?.data) {
             console.error(error?.response?.data.error?.message);
@@ -81,11 +144,6 @@ const calendarPage: NextPage = () => {
     }, []
   );
 
-  function stringWithLineBreaks(inputString: string) {
-    var outputString = inputString?.toString().replace(/(?:\r\n|\r|\n)/g, '<br />');
-    return outputString;
-  };
-
   return (
     <Page
       title='Calendar - Ariadne Antipa'
@@ -96,60 +154,62 @@ const calendarPage: NextPage = () => {
       <>
         <h1>Calendar</h1>
         {isLoadingUpcomingEvents ? (
-          <h2 className='mt-12'>Loading Upcoming Events...</h2>
+          <h2 id='loading-upcoming-events' className='mt-12'>Loading Upcoming Events...</h2>
         ) : (
           (upcomingEvents ? (
             <section
-              className='mt-12 flex flex-col gap-4 text-center'
+              className='w-full mt-12 flex flex-col gap-4 text-center'
               id='upcoming-events-container'
             >
-              <h2 id='upcoming-events'>Upcoming Events</h2>
+              {(upcomingEvents.length > 1 ? (
+                <h2 id='upcoming-events'>Upcoming Events</h2>
+              ) : (
+                <h2 id='upcoming-event'>Upcoming Event</h2>
+              ))}
               <div
-                className='flex flex-col gap-4 justify-center align-middle items-center text-center'
+                className='w-full flex flex-col gap-6 justify-center align-middle items-center text-center'
                 id='upcoming-events-list'
               >
                 {upcomingEvents.map((upcomingEvent) => (
-                  <ButtonInternal
-                    className='max-w-[600px] w-full'
-                    href={`event/${upcomingEvent.attributes.Name}?id=${upcomingEvent.id}`}
-                    title={upcomingEvent.attributes.Name}>
-                    <article
-                      key={upcomingEvent.attributes.Name}
-                    >
-                      <h3 className='py-2 font-bold text-3xl max-sm:hyphens-auto'>{upcomingEvent.attributes.Name}</h3>
-                      {upcomingEvent.attributes.Price ? (<p className='text-2xl max-sm:hyphens-auto' dangerouslySetInnerHTML={{ __html: stringWithLineBreaks(upcomingEvent.attributes.Price) }} />) : ''}
-                    </article>
-                  </ButtonInternal>
+                  <ItemEvent
+                    key={upcomingEvent.attributes.Name}
+                    id={upcomingEvent.id.toString()}
+                    Name={upcomingEvent.attributes.Name}
+                    Date={upcomingEvent.attributes.Date}
+                    Day={upcomingEvent.attributes.Day}
+                    Price={upcomingEvent.attributes.Price}
+                  />
                 ))}
               </div>
             </section>
           ) : '')
         )}
         {isLoadingPastEvents ? (
-          <h2 className='mt-12'>Loading Past Events...</h2>
+          <h2 id='loading-past-events' className='mt-12'>Loading Past Events...</h2>
         ) : (
-          (pastEvents ? (
+          (pastEvents && pastEvents.length ? (
             <section
-              className='mt-12 flex flex-col gap-4 text-center'
+              className='w-full mt-12 flex flex-col gap-4 text-center'
               id='past-events-container'
             >
-              <h2 id='past-events'>Past Events</h2>
+              {(pastEvents.length > 1 ? (
+                <h2 id='past-events'>Past Events</h2>
+              ) : (
+                <h2 id='past-event'>Past Event</h2>
+              ))}
               <div
-                className='flex flex-col gap-4 justify-center align-middle items-center text-center'
+                className='w-full flex flex-col gap-6 justify-center align-middle items-center text-center'
                 id='past-events-list'
               >
                 {pastEvents.map((pastEvent) => (
-                  <ButtonInternal
-                    className='max-w-[600px] w-full'
-                    href={`event/${pastEvent.attributes.Name}?id=${pastEvent.id}`}
-                    title={pastEvent.attributes.Name}>
-                    <article
-                      key={pastEvent.attributes.Name}
-                    >
-                      <h3 className='py-2 font-bold text-3xl max-sm:hyphens-auto'>{pastEvent.attributes.Name}</h3>
-                      {pastEvent.attributes.Price ? (<p className='text-2xl max-sm:hyphens-auto' dangerouslySetInnerHTML={{ __html: stringWithLineBreaks(pastEvent.attributes.Price) }} />) : ''}
-                    </article>
-                  </ButtonInternal>
+                  <ItemEvent
+                    key={pastEvent.attributes.Name}
+                    id={pastEvent.id.toString()}
+                    Name={pastEvent.attributes.Name}
+                    Date={pastEvent.attributes.Date}
+                    Day={pastEvent.attributes.Day}
+                    Price={pastEvent.attributes.Price}
+                  />
                 ))}
               </div>
             </section>

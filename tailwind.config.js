@@ -8,12 +8,15 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-          ariBlack: '#111214',
-          ariWhite: '#DEDBCD',
-          ariWhiteHover: '#BCB9AD',
-          ariWhiteFocus: '#AFADA1',
-          ariWhiteActive: '#9B9990',
-          ariGold: '#C5A974',
+        ariBlack: '#111214',
+        ariBlackDark: '#202126',
+        ariBlackDarker: '#1C1D21',
+        ariBlackDarkest: '#18191C',
+        ariWhite: '#DEDBCD',
+        ariWhiteHover: '#BCB9AD',
+        ariWhiteFocus: '#AFADA1',
+        ariWhiteActive: '#9B9990',
+        ariGold: '#C5A974',
       }
     },
   },

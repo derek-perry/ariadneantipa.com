@@ -32,16 +32,6 @@ const pagePage: NextPage<IPagePageProps> = ({ pages, page }) => {
             className='max-w-[1000px]'
             id={page.attributes.Title}
           >
-            {page.attributes.Image?.data ? (
-              <div className='mb-8 min-w-auto'>
-                <img
-                  alt={page.attributes.Image?.data?.attributes.alternativeText}
-                  src={page.attributes.Image?.data?.attributes.url ? page.attributes.Image?.data?.attributes.url : ''}
-                  height={page.attributes.Image?.data?.attributes.height ? page.attributes.Image?.data?.attributes.height : 0}
-                  width={page.attributes.Image?.data?.attributes.width ? page.attributes.Image?.data?.attributes.width : 0}
-                />
-              </div>
-            ) : ''}
             <h1 className='mb-4 max-sm:hyphens-auto'>{page.attributes.Title}</h1>
             <p className='mt-4 max-sm:hyphens-auto text-left' dangerouslySetInnerHTML={{ __html: stringWithLineBreaks(page.attributes.Content) }} />
           </article>

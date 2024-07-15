@@ -110,3 +110,23 @@ a:hover {
   color: #111214;
   background-color: #BCB9AD;
 }
+
+hr.hrFancy {
+  padding: 0;
+  max-width: 600px;
+  margin: 1rem auto;
+  border: none;
+  border-top: medium double #C5A974;
+  color: #C5A974;
+  text-align: center;
+}
+
+hr.hrFancyDark {
+  padding: 0;
+  max-width: 600px;
+  margin: 1rem auto;
+  border: none;
+  border-top: medium double #202126;
+  color: #202126;
+  text-align: center;
+}

@@ -4,7 +4,7 @@ import type { NextPage } from 'next';
 import api from '../lib/config';
 import { projectProps } from '../lib/api';
 import Page from '../components/Page';
-import ButtonInternal from '../components/Buttons/ButtonInternal';
+import ItemProject from '../components/Items/ItemProject';
 
 const calendarPage: NextPage = () => {
   const [projects, setProjects] = useState<projectProps[]>([]);
@@ -33,7 +33,12 @@ const calendarPage: NextPage = () => {
               fetchedData.push(...response.data.data);
             };
           };
-          setProjects(fetchedData);
+          const uniqueFetchedData = fetchedData.filter((item, index, self) =>
+            index === self.findIndex((t) => (
+              t.id === item.id
+            ))
+          );
+          setProjects(uniqueFetchedData);
         } catch (error: any) {
           if (error?.response?.data) {
             console.error(error?.response?.data.error?.message);
@@ -57,24 +62,20 @@ const calendarPage: NextPage = () => {
       <>
         <h1>Projects</h1>
         {isLoadingProjects ? (
-          <h2 className='mt-12'>Loading Projects...</h2>
+          <h2 id='loading-projects' className='mt-12'>Loading Projects...</h2>
         ) : (
           (projects ? (
             <section
-              className='mt-12 flex flex-col gap-12 justify-center align-middle items-center text-center'
+              className='w-full mt-12 flex flex-col gap-6 justify-center align-middle items-center text-center'
               id='projects-list'
             >
               {projects.map((project) => (
-                <ButtonInternal
-                  className='max-w-[600px] w-full'
-                  href={`project/${project.attributes.Name}?id=${project.id}`}
-                  title={project.attributes.Name}>
-                  <article
-                    key={project.attributes.Name}
-                  >
-                    <h3 className='py-2 font-bold text-3xl max-sm:hyphens-auto'>{project.attributes.Name}</h3>
-                  </article>
-                </ButtonInternal>
+                <ItemProject
+                  key={project.attributes.Name}
+                  id={project.id.toString()}
+                  Name={project.attributes.Name}
+                  Description={project.attributes.Description}
+                />
               ))}
             </section>
           ) : '')

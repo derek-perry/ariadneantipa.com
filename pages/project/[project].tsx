@@ -59,16 +59,6 @@ const ProjectPage: NextPage<IProjectPageProps> = ({ project, prevUrl }) => {
                 </LinkInternal>
               </div>
             ) : ''}
-            {project.attributes.Image?.data ? (
-              <div className='mb-8 min-w-auto'>
-                <img
-                  alt={project.attributes.Image?.data?.attributes.alternativeText}
-                  src={project.attributes.Image?.data?.attributes.url ? project.attributes.Image?.data?.attributes.url : ''}
-                  height={project.attributes.Image?.data?.attributes.height ? project.attributes.Image?.data?.attributes.height : 0}
-                  width={project.attributes.Image?.data?.attributes.width ? project.attributes.Image?.data?.attributes.width : 0}
-                />
-              </div>
-            ) : ''}
             <h1 className='mb-4 max-sm:hyphens-auto'>{project.attributes.Name}</h1>
             <p className='mt-4 max-sm:hyphens-auto text-left' dangerouslySetInnerHTML={{ __html: stringWithLineBreaks(project.attributes.Description) }} />
           </article>

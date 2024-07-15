@@ -10,6 +10,7 @@ export type eventProps = {
   attributes: {
     Name: string;
     Date: string;
+    Day: eventDayProps[] | null;
     Price: string;
     Description: string;
     Image: {
@@ -25,9 +26,15 @@ export type eventProps = {
     };
   };
 };
+export type eventDayProps = {
+  id: number;
+  StartTime: string;
+  EndTime: string;
+  Price: string;
+};
 export const apiGetEvent = {
   get: (id?: string) =>
-    api.get<IGetEventResponse>(`events/${id ?? ''}?populate[Image][fields][0]=height&populate[Image][fields][1]=width&populate[Image][fields][2]=url&populate[Image][fields][3]=alternativeText`)
+    api.get<IGetEventResponse>(`events/${id ?? '0'}?populate[Image][fields][0]=height&populate[Image][fields][1]=width&populate[Image][fields][2]=url&populate[Image][fields][3]=alternativeText&populate[Day][fields][4]=StartTime&populate[Day][fields][5]=EndTime&populate[Day][fields][6]=Price`)
 };
 
 // Get Page
@@ -89,5 +96,5 @@ export interface projectProps {
 };
 export const apiGetProject = {
   get: (id?: string) =>
-    api.get<IGetProjectResponse>(`projects/${id ?? ''}?populate[Image][fields][0]=height&populate[Image][fields][1]=width&populate[Image][fields][2]=url&populate[Image][fields][3]=alternativeText`)
+    api.get<IGetProjectResponse>(`projects/${id ?? '0'}?populate[Image][fields][0]=height&populate[Image][fields][1]=width&populate[Image][fields][2]=url&populate[Image][fields][3]=alternativeText`)
 };

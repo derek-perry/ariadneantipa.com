@@ -15,7 +15,7 @@ const LinkExternal: FC<ILinkExternalProps> = ({
   className
 }): JSX.Element => {
   return (
-    <Link href={href} title={title} target='_blank' rel='noopener noreferrer' className={'underline text-ariGold active:text-ariWhiteActive focus:text-ariWhiteFocus hover:text-ariWhiteHover hover:no-underline ' + className + ' transition-all motion-reduce:transition-none motion-reduce:hover:transform-none'}>
+    <Link href={href} title={title} target='_blank' rel='noopener noreferrer' className={'underline text-ariGold active:text-ariWhiteActive focus:text-ariWhiteFocus hover:text-ariWhiteHover hover:no-underline transition-all motion-reduce:transition-none motion-reduce:hover:transform-none ' + className}>
       {children}
     </Link>
   );
