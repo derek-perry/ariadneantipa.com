@@ -167,9 +167,8 @@ const homePage: NextPage = () => {
                       key={upcomingEvent.attributes.Name}
                       id={upcomingEvent.id.toString()}
                       Name={upcomingEvent.attributes.Name}
-                      Date={upcomingEvent.attributes.Date}
                       Day={upcomingEvent.attributes.Day}
-                      Price={upcomingEvent.attributes.Price}
+                      Description={upcomingEvent.attributes.Description}
                     />
                   ))}
                 </div>

@@ -6,23 +6,29 @@ import LinkInternal from '../Links/LinkInternal';
 interface IItemEventProps {
   id: string;
   Name: string;
-  Date: string | null;
   Day: eventDayProps[] | null;
-  Price: string | null;
+  Description: string;
   className?: string;
 };
 
 const ItemEvent: FC<IItemEventProps> = ({
   id,
   Name,
-  Date,
   Day,
-  Price,
+  Description,
   className
 }): JSX.Element => {
   function stringWithLineBreaks(inputString: string) {
     var outputString = inputString?.toString().replace(/(?:\r\n|\r|\n)/g, '<br />');
     return outputString;
+  };
+
+  function fixDescription(inputString: string) {
+    if (inputString?.split(' ').length >= 30) {
+      return stringWithLineBreaks(inputString?.split(' ').slice(0, 30).join(' ') + '...');
+    } else {
+      return stringWithLineBreaks(inputString);
+    };
   };
 
   function formatDate(dateTime: string) {
@@ -49,7 +55,7 @@ const ItemEvent: FC<IItemEventProps> = ({
       return `${monthName} ${day}, ${year} ${hour12}:${minute}${ampm}`;
     } else {
       return '';
-    }
+    };
   };
 
   return (
@@ -63,45 +69,25 @@ const ItemEvent: FC<IItemEventProps> = ({
         title={Name}
         className='w-auto min-w-auto'
       ><h3 className='font-bold text-4xl max-sm:hyphens-auto'>{Name}</h3></LinkInternal>
-      {Date && Price ? (
-        <div
-          className='bg-ariBlackDarker rounded shadow py-4'
-        >
-          {Date ? (<p className='text-2xl max-sm:hyphens-auto' dangerouslySetInnerHTML={{ __html: stringWithLineBreaks(Date) }} />) : ''}
-          {Price ? (
-            <>
-              <hr className='border-ariBlackDark !mb-1 !mt-2' />
-              <p className='text-2xl max-sm:hyphens-auto' dangerouslySetInnerHTML={{ __html: stringWithLineBreaks(Price) }} />
-            </>
-          ) : ''}
-        </div>
-      ) : (
-        <>
-          {Date ? (
-            <div
-              className='bg-ariBlackDarker rounded shadow py-4'
-            >
-              <p className='text-2xl max-sm:hyphens-auto' dangerouslySetInnerHTML={{ __html: stringWithLineBreaks(Date) }} />
-            </div>
-          ) : ''}
-          {Price ? (
-            <div
-              className='bg-ariBlackDarker rounded shadow py-4'
-            >
-              <p className='text-2xl max-sm:hyphens-auto' dangerouslySetInnerHTML={{ __html: stringWithLineBreaks(Price) }} />
-            </div>
-          ) : ''}
-        </>
-      )}
       {Day && Day.length ? (
         <div className='flex flex-col gap-4'>
           {Day.map((DayItem) => (
             (DayItem.StartTime && DayItem.Price) ? (
               <div
-                className='bg-ariBlackDarker rounded shadow py-4'
+                className='bg-ariBlackDarker rounded shadow p-4'
               >
                 {DayItem.StartTime ? (
-                  <p className='text-2xl max-sm:hyphens-auto'>{formatDate(DayItem.StartTime) + (DayItem.EndTime ? (' - ' + formatDate(DayItem.EndTime)) : '')}</p>
+                  <div
+                    className='flex flex-row flex-wrap gap-y-0 gap-x-4 justify-center align-middle items-center'
+                  >
+                    <p className='text-2xl max-sm:hyphens-auto'>{formatDate(DayItem.StartTime)}</p>
+                    {(DayItem.EndTime ? (
+                      <div className='flex flex-row flex-wrap gap-y-0 gap-x-4 justify-center align-middle items-center'>
+                        <p className='text-2xl max-sm:hyphens-auto'> - </p>
+                        <p className='text-2xl max-sm:hyphens-auto'>{formatDate(DayItem.EndTime)}</p>
+                      </div>
+                    ) : '')}
+                  </div>
                 ) : ''}
                 {DayItem.Price ? (
                   <>
@@ -114,14 +100,20 @@ const ItemEvent: FC<IItemEventProps> = ({
               <>
                 {DayItem.StartTime ? (
                   <div
-                    className='bg-ariBlackDarker rounded shadow py-4'
+                    className='bg-ariBlackDarker rounded shadow p-4 flex flex-row flex-wrap gap-y-0 gap-x-4 justify-center align-middle items-center'
                   >
-                    <p className='text-2xl max-sm:hyphens-auto'>{formatDate(DayItem.StartTime) + (DayItem.EndTime ? (' - ' + formatDate(DayItem.EndTime)) : '')}</p>
+                    <p className='text-2xl max-sm:hyphens-auto'>{formatDate(DayItem.StartTime)}</p>
+                    {(DayItem.EndTime ? (
+                      <div className='flex flex-row flex-wrap gap-y-0 gap-x-4 justify-center align-middle items-center'>
+                        <p className='text-2xl max-sm:hyphens-auto'> - </p>
+                        <p className='text-2xl max-sm:hyphens-auto'>{formatDate(DayItem.EndTime)}</p>
+                      </div>
+                    ) : '')}
                   </div>
                 ) : ''}
                 {DayItem.Price ? (
                   <div
-                    className='bg-ariBlackDarker rounded shadow py-4'
+                    className='bg-ariBlackDarker rounded shadow p-4'
                   >
                     <p className='text-2xl max-sm:hyphens-auto' dangerouslySetInnerHTML={{ __html: stringWithLineBreaks(DayItem.Price) }} />
                   </div>
@@ -130,6 +122,9 @@ const ItemEvent: FC<IItemEventProps> = ({
             )
           ))}
         </div>
+      ) : ''}
+      {Description ? (
+        <p className='text-ariWhiteHover text-justify text-xl max-sm:hyphens-auto' dangerouslySetInnerHTML={{ __html: fixDescription(Description) }} />
       ) : ''}
       <ButtonInternal
         href={`event/${Name}?id=${id}`}

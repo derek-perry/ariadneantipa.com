@@ -175,9 +175,8 @@ const calendarPage: NextPage = () => {
                     key={upcomingEvent.attributes.Name}
                     id={upcomingEvent.id.toString()}
                     Name={upcomingEvent.attributes.Name}
-                    Date={upcomingEvent.attributes.Date}
                     Day={upcomingEvent.attributes.Day}
-                    Price={upcomingEvent.attributes.Price}
+                    Description={upcomingEvent.attributes.Description}
                   />
                 ))}
               </div>
@@ -206,9 +205,8 @@ const calendarPage: NextPage = () => {
                     key={pastEvent.attributes.Name}
                     id={pastEvent.id.toString()}
                     Name={pastEvent.attributes.Name}
-                    Date={pastEvent.attributes.Date}
                     Day={pastEvent.attributes.Day}
-                    Price={pastEvent.attributes.Price}
+                    Description={pastEvent.attributes.Description}
                   />
                 ))}
               </div>

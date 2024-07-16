@@ -65,7 +65,7 @@ const EventPage: NextPage<IEventPageProps> = ({ event, prevUrl }) => {
       return `${monthName} ${day}, ${year} ${hour12}:${minute}${ampm}`;
     } else {
       return '';
-    }
+    };
   };
 
   return (
@@ -119,45 +119,25 @@ const EventPage: NextPage<IEventPageProps> = ({ event, prevUrl }) => {
             {event.attributes.Name ? (
               <h3 className='font-bold text-5xl max-md:text-4xl max-sm:hyphens-auto'>{event.attributes.Name}</h3>
             ) : ''}
-            {event.attributes.Date && event.attributes.Price ? (
-              <div
-                className='bg-ariBlackDarker rounded shadow p-4 my-4'
-              >
-                {event.attributes.Date ? (<p className='text-2xl max-sm:hyphens-auto' dangerouslySetInnerHTML={{ __html: stringWithLineBreaks(event.attributes.Date) }} />) : ''}
-                {event.attributes.Price ? (
-                  <>
-                    <hr className='border-ariBlackDark !mb-1 !mt-2' />
-                    <p className='text-2xl max-sm:hyphens-auto' dangerouslySetInnerHTML={{ __html: stringWithLineBreaks(event.attributes.Price) }} />
-                  </>
-                ) : ''}
-              </div>
-            ) : (
-              <>
-                {event.attributes.Date ? (
-                  <div
-                    className='bg-ariBlackDarker rounded shadow p-4 my-4'
-                  >
-                    <p className='text-2xl max-sm:hyphens-auto' dangerouslySetInnerHTML={{ __html: stringWithLineBreaks(event.attributes.Date) }} />
-                  </div>
-                ) : ''}
-                {event.attributes.Price ? (
-                  <div
-                    className='bg-ariBlackDarker rounded shadow p-4 my-4'
-                  >
-                    <p className='text-2xl max-sm:hyphens-auto' dangerouslySetInnerHTML={{ __html: stringWithLineBreaks(event.attributes.Price) }} />
-                  </div>
-                ) : ''}
-              </>
-            )}
             {event.attributes.Day && event.attributes.Day.length ? (
-              <div className='flex flex-col gap-4'>
+              <div className='flex flex-col gap-4 mt-6'>
                 {event.attributes.Day.map((DayItem) => (
                   (DayItem.StartTime && DayItem.Price) ? (
                     <div
                       className='bg-ariBlackDarker rounded shadow p-4'
                     >
                       {DayItem.StartTime ? (
-                        <p className='text-2xl max-sm:hyphens-auto'>{formatDate(DayItem.StartTime) + (DayItem.EndTime ? (' - ' + formatDate(DayItem.EndTime)) : '')}</p>
+                        <div
+                          className='flex flex-row flex-wrap gap-y-0 gap-x-4'
+                        >
+                          <p className='text-2xl max-sm:hyphens-auto'>{formatDate(DayItem.StartTime)}</p>
+                          {(DayItem.EndTime ? (
+                            <div className='flex flex-row flex-wrap gap-y-0 gap-x-4'>
+                              <p className='text-2xl max-sm:hyphens-auto'> - </p>
+                              <p className='text-2xl max-sm:hyphens-auto'>{formatDate(DayItem.EndTime)}</p>
+                            </div>
+                          ) : '')}
+                        </div>
                       ) : ''}
                       {DayItem.Price ? (
                         <>
@@ -170,9 +150,15 @@ const EventPage: NextPage<IEventPageProps> = ({ event, prevUrl }) => {
                     <>
                       {DayItem.StartTime ? (
                         <div
-                          className='bg-ariBlackDarker rounded shadow p-4'
+                          className='bg-ariBlackDarker rounded shadow p-4 flex flex-row flex-wrap gap-y-0 gap-x-4'
                         >
-                          <p className='text-2xl max-sm:hyphens-auto'>{formatDate(DayItem.StartTime) + (DayItem.EndTime ? (' - ' + formatDate(DayItem.EndTime)) : '')}</p>
+                          <p className='text-2xl max-sm:hyphens-auto'>{formatDate(DayItem.StartTime)}</p>
+                          {(DayItem.EndTime ? (
+                            <div className='flex flex-row flex-wrap gap-y-0 gap-x-4 justify-center align-middle items-center'>
+                              <p className='text-2xl max-sm:hyphens-auto'> - </p>
+                              <p className='text-2xl max-sm:hyphens-auto'>{formatDate(DayItem.EndTime)}</p>
+                            </div>
+                          ) : '')}
                         </div>
                       ) : ''}
                       {DayItem.Price ? (
