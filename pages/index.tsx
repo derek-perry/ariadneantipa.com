@@ -147,7 +147,7 @@ const homePage: NextPage = () => {
           {isLoadingUpcomingEvents ? (
             <h2 id='loading-upcoming-events'>Loading Upcoming Events...</h2>
           ) : (
-            (upcomingEvents ? (
+            (upcomingEvents && upcomingEvents.length ? (
               <section
                 className='bg-ariBlackDarkest min-h-full w-full max-w-[600px] text-center'
                 id='events-container'
@@ -179,7 +179,7 @@ const homePage: NextPage = () => {
           {isLoadingProjects ? (
             <h2 id='loading-projects'>Loading Projects...</h2>
           ) : (
-            (projects ? (
+            (projects && projects.length ? (
               <section
                 className='bg-ariBlackDarkest min-h-full w-full max-w-[600px] text-center'
                 id='projects-container'

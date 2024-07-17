@@ -64,7 +64,7 @@ const calendarPage: NextPage = () => {
         {isLoadingProjects ? (
           <h2 id='loading-projects' className='mt-12'>Loading Projects...</h2>
         ) : (
-          (projects ? (
+          (projects && projects.length ? (
             <section
               className='w-full mt-12 flex flex-col gap-6 justify-center align-middle items-center text-center'
               id='projects-list'

@@ -156,7 +156,7 @@ const calendarPage: NextPage = () => {
         {isLoadingUpcomingEvents ? (
           <h2 id='loading-upcoming-events' className='mt-12'>Loading Upcoming Events...</h2>
         ) : (
-          (upcomingEvents ? (
+          (upcomingEvents && upcomingEvents.length ? (
             <section
               className='w-full mt-12 flex flex-col gap-4 text-center'
               id='upcoming-events-container'
