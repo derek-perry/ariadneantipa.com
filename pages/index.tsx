@@ -137,7 +137,7 @@ const homePage: NextPage = () => {
           className='max-w-[500px] text-left px-8'
           id='contact'
         >
-          <p>If you’d like to book Ariadne Antipa to play for your event, inquire about piano lessons, or have any other questions, send an email to <LinkExternal className='max-sm:break-all' href='mailto:contact@ariadneantipa.com' title='Contact Ariadne Antipa via Email at Contact@AriadneAntipa.com'>Contact@AriadneAntipa.com</LinkExternal></p>
+          <p>If you’d like to book Ariadne Antipa to play for your event, inquire about piano lessons, or have any other questions, send an email to <br/><LinkExternal className='max-sm:break-all' href='mailto:contact@ariadneantipa.com' title='Contact Ariadne Antipa via Email at Contact@AriadneAntipa.com'>Contact@AriadneAntipa.com</LinkExternal></p>
         </section>
 
         <section
@@ -152,7 +152,7 @@ const homePage: NextPage = () => {
                 className='bg-ariBlackDarkest min-h-full w-full max-w-[600px] text-center'
                 id='events-container'
               >
-                <hr className='hrFancy !mt-0' />
+                <hr className='hrFancy max-w-[600px] !mt-0' />
                 {(upcomingEvents.length > 1 ? (
                   <h2 className='mb-4' id='upcoming-events'>Upcoming Events</h2>
                 ) : (
@@ -184,7 +184,7 @@ const homePage: NextPage = () => {
                 className='bg-ariBlackDarkest min-h-full w-full max-w-[600px] text-center'
                 id='projects-container'
               >
-                <hr className='hrFancy !mt-0' />
+                <hr className='hrFancy max-w-[600px] !mt-0' />
                 {(projects.length > 1 ? (
                   <h2 className='mb-4' id='projects'>Projects</h2>
                 ) : (
