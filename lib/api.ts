@@ -5,13 +5,11 @@ export interface IGetEventResponse {
   status: number;
   data: eventProps;
 };
-export type eventProps = {
+export interface eventProps {
   id: number;
   attributes: {
     Name: string;
-    Date: string;
     Day: eventDayProps[] | null;
-    Price: string;
     Description: string;
     Image: {
       data: {
@@ -26,15 +24,24 @@ export type eventProps = {
     };
   };
 };
-export type eventDayProps = {
+export interface eventDayProps {
   id: number;
   StartTime: string;
   EndTime: string;
+  Timezone: {
+    data: {
+      attributes: {
+        Abbreviation: string;
+        Name: string;
+        Offset: string;
+      };
+    } | null;
+  };
   Price: string;
 };
 export const apiGetEvent = {
   get: (id?: string) =>
-    api.get<IGetEventResponse>(`events/${id ?? '0'}?populate[Image][fields][0]=height&populate[Image][fields][1]=width&populate[Image][fields][2]=url&populate[Image][fields][3]=alternativeText&populate[Day][fields][4]=StartTime&populate[Day][fields][5]=EndTime&populate[Day][fields][6]=Price`)
+    api.get<IGetEventResponse>(`events/${id ?? '0'}?populate[Image][fields][0]=height&populate[Image][fields][1]=width&populate[Image][fields][2]=url&populate[Image][fields][3]=alternativeText&populate[Day][fields][4]=StartTime&populate[Day][fields][5]=EndTime&populate[Day][fields][6]=Price&populate[Day][populate][0]=Timezone`)
 };
 
 // Get Page

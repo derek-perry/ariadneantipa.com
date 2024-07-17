@@ -10,9 +10,16 @@ import ItemEvent from '../components/Items/ItemEvent';
 import ItemProject from '../components/Items/ItemProject';
 
 const homePage: NextPage = () => {
-  const currentDateTime = new Date();
-  currentDateTime.setHours(currentDateTime.getHours() - 4);
-  const currentDateTimeISO = currentDateTime.toISOString();
+  let currentDateTime: Date = new Date();
+  const timezoneOffset = new Date().getTimezoneOffset()
+  const offset = Math.abs(timezoneOffset)
+  const offsetHours = Math.floor(offset / 60).toString().padStart(2, '0')
+  currentDateTime.setHours((timezoneOffset < 0 ? (currentDateTime.getHours() + parseInt(offsetHours)) : (currentDateTime.getHours() - 4)));
+  if (currentDateTime.getHours() < 0) {
+    currentDateTime.setHours(currentDateTime.getHours() + 24);
+    currentDateTime.setDate(currentDateTime.getDate() - 1);
+  };
+  const currentDateTimeISO = currentDateTime.toISOString().split('T')[0];
   const [upcomingEvents, setUpcomingEvents] = useState<eventProps[]>([]);
   const [isLoadingUpcomingEvents, setIsLoadingUpcomingEvents] = useState(false);
   const [projects, setProjects] = useState<projectProps[]>([]);
@@ -25,7 +32,7 @@ const homePage: NextPage = () => {
           setIsLoadingUpcomingEvents(true);
           const fetchedData = [];
           const { data } = await api.get(
-            `events?pagination[page]=1&pagination[pageSize]=10&filters[Day][StartTime][$gte]=${currentDateTimeISO}&sort[0]=id:desc&populate[Day][fields][4]=StartTime&populate[Day][fields][5]=EndTime&populate[Day][fields][6]=Price`
+            `events?pagination[page]=1&pagination[pageSize]=10&filters[Day][StartTime][$gte]=${currentDateTimeISO}&sort[0]=id:desc&populate[Day][fields][4]=StartTime&populate[Day][fields][5]=EndTime&populate[Day][fields][6]=Price&populate[Day][populate][0]=Timezone`
           );
           fetchedData.push(...data?.data);
           if (
@@ -36,7 +43,7 @@ const homePage: NextPage = () => {
             const { page, pageCount } = data?.meta?.pagination;
             for (let i = page + 1; i <= pageCount; i++) {
               let response = await api.get(
-                `events?pagination[page]=${i}&pagination[pageSize]=10&filters[Day][StartTime][$gte]=${currentDateTimeISO}&sort[0]=id:desc&populate[Day][fields][4]=StartTime&populate[Day][fields][5]=EndTime&populate[Day][fields][6]=Price`
+                `events?pagination[page]=${i}&pagination[pageSize]=10&filters[Day][StartTime][$gte]=${currentDateTimeISO}&sort[0]=id:desc&populate[Day][fields][4]=StartTime&populate[Day][fields][5]=EndTime&populate[Day][fields][6]=Price&populate[Day][populate][0]=Timezone`
               );
               fetchedData.push(...response.data.data);
             };
@@ -124,7 +131,7 @@ const homePage: NextPage = () => {
 
   return (
     <Page
-      title='Ariadne Antipa'
+      title='Ariadne Antipa - Pianist | Educator | Conductor'
       description='AriadneAntipa.com is the official website for Ariadne Antipa - Pianist, Educator, and Conductor'
       url=''
       image=''
@@ -137,7 +144,7 @@ const homePage: NextPage = () => {
           className='max-w-[500px] text-left px-8'
           id='contact'
         >
-          <p>If you’d like to book Ariadne Antipa to play for your event, inquire about piano lessons, or have any other questions, send an email to <br/><LinkExternal className='max-sm:break-all' href='mailto:contact@ariadneantipa.com' title='Contact Ariadne Antipa via Email at Contact@AriadneAntipa.com'>Contact@AriadneAntipa.com</LinkExternal></p>
+          <p>If you’d like to book Ariadne Antipa to play for your event, inquire about piano lessons, or have any other questions, send an email to <br /><LinkExternal className='max-sm:break-all' href='mailto:contact@ariadneantipa.com' title='Contact Ariadne Antipa via Email at Contact@AriadneAntipa.com'>Contact@AriadneAntipa.com</LinkExternal></p>
         </section>
 
         <section

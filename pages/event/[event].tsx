@@ -41,7 +41,7 @@ const EventPage: NextPage<IEventPageProps> = ({ event, prevUrl }) => {
     return outputString;
   };
 
-  function formatDate(dateTime: string) {
+  function formatDate(dateTime: string, timezoneOffset?: string) {
     if (!dateTime) return '';
 
     // Regular expression to match ISO 8601 date format
@@ -62,7 +62,19 @@ const EventPage: NextPage<IEventPageProps> = ({ event, prevUrl }) => {
       const ampm = hourInt >= 12 ? 'pm' : 'am';
       const hour12 = hourInt % 12 || 12;
 
-      return `${monthName} ${day}, ${year} ${hour12}:${minute}${ampm}`;
+      if (timezoneOffset) {
+        const timezoneOffsetInt = parseInt(timezoneOffset, 10);
+        let adjustedHour = (hourInt + timezoneOffsetInt) % 24;
+        if (adjustedHour < 0) {
+          adjustedHour += 24;
+        }
+        const adjustedHour12 = adjustedHour % 12 || 12;
+        const adjustedAMPM = adjustedHour >= 12 ? 'pm' : 'am';
+
+        return `${monthName} ${day}, ${year} ${adjustedHour12}:${minute}${adjustedAMPM}`;
+      } else {
+        return `${monthName} ${day}, ${year} ${hour12}:${minute}${ampm}`;
+      };
     } else {
       return '';
     };
@@ -124,17 +136,20 @@ const EventPage: NextPage<IEventPageProps> = ({ event, prevUrl }) => {
                 {event.attributes.Day.map((DayItem) => (
                   (DayItem.StartTime && DayItem.Price) ? (
                     <div
-                      className='bg-ariBlackDarker rounded shadow p-4'
+                      className='bg-ariBlackDarker rounded shadow p-2'
                     >
                       {DayItem.StartTime ? (
                         <div
-                          className='flex flex-row flex-wrap gap-y-0 gap-x-4'
+                          className='flex flex-row flex-wrap gap-y-0 gap-x-2'
                         >
-                          <p className='text-2xl max-sm:hyphens-auto'>{formatDate(DayItem.StartTime)}</p>
+                          <p className='text-2xl max-sm:hyphens-auto'>{formatDate(DayItem.StartTime, DayItem.Timezone.data?.attributes.Offset)}</p>
                           {(DayItem.EndTime ? (
-                            <div className='flex flex-row flex-wrap gap-y-0 gap-x-4'>
+                            <div className='flex flex-row flex-wrap gap-y-0 gap-x-2'>
                               <p className='text-2xl max-sm:hyphens-auto'> - </p>
-                              <p className='text-2xl max-sm:hyphens-auto'>{formatDate(DayItem.EndTime)}</p>
+                              <p className='text-2xl max-sm:hyphens-auto'>{formatDate(DayItem.EndTime, DayItem.Timezone.data?.attributes.Offset)}</p>
+                              {(DayItem.Timezone.data ? (
+                                <p className='text-2xl max-sm:hyphens-auto'>{DayItem.Timezone.data.attributes.Abbreviation}</p>
+                              ) : '')}
                             </div>
                           ) : '')}
                         </div>
@@ -150,22 +165,18 @@ const EventPage: NextPage<IEventPageProps> = ({ event, prevUrl }) => {
                     <>
                       {DayItem.StartTime ? (
                         <div
-                          className='bg-ariBlackDarker rounded shadow p-4 flex flex-row flex-wrap gap-y-0 gap-x-4'
+                          className='bg-ariBlackDarker rounded shadow p-2 flex flex-row flex-wrap gap-y-0 gap-x-4'
                         >
-                          <p className='text-2xl max-sm:hyphens-auto'>{formatDate(DayItem.StartTime)}</p>
+                          <p className='text-2xl max-sm:hyphens-auto'>{formatDate(DayItem.StartTime, DayItem.Timezone.data?.attributes.Offset)}</p>
                           {(DayItem.EndTime ? (
-                            <div className='flex flex-row flex-wrap gap-y-0 gap-x-4 justify-center align-middle items-center'>
+                            <div className='flex flex-row flex-wrap gap-y-0 gap-x-2 justify-center align-middle items-center'>
                               <p className='text-2xl max-sm:hyphens-auto'> - </p>
-                              <p className='text-2xl max-sm:hyphens-auto'>{formatDate(DayItem.EndTime)}</p>
+                              <p className='text-2xl max-sm:hyphens-auto'>{formatDate(DayItem.EndTime, DayItem.Timezone.data?.attributes.Offset)}</p>
+                              {(DayItem.Timezone.data ? (
+                                <p className='text-2xl max-sm:hyphens-auto'>{DayItem.Timezone.data.attributes.Abbreviation}</p>
+                              ) : '')}
                             </div>
                           ) : '')}
-                        </div>
-                      ) : ''}
-                      {DayItem.Price ? (
-                        <div
-                          className='bg-ariBlackDarker rounded shadow p-4'
-                        >
-                          <p className='text-2xl max-sm:hyphens-auto' dangerouslySetInnerHTML={{ __html: stringWithLineBreaks(DayItem.Price) }} />
                         </div>
                       ) : ''}
                     </>
