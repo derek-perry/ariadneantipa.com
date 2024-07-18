@@ -44,7 +44,7 @@ export const NavigationDropdown: FC<INavigationDropdownProps> = ({
   return (
     <nav
       ref={ref}
-      className='absolute z-50 right-0 mx-1 top-[63px] overflow-hidden rounded-lg bg-ariBlackDark shadow-lg'
+      className='absolute z-50 right-7 mx-1 top-[74px] overflow-hidden rounded-lg bg-ariBlackDark shadow-lg'
     >
       <div className='flex flex-col'>
         <ul className='list-none flex flex-col'>

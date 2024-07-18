@@ -32,8 +32,8 @@ const pagePage: NextPage<IPagePageProps> = ({ pages, page }) => {
             className='max-w-[1000px]'
             id={page.attributes.Title}
           >
-            <h1 className='mb-4 max-sm:hyphens-auto'>{page.attributes.Title}</h1>
-            <p className='mt-4 max-sm:hyphens-auto text-left' dangerouslySetInnerHTML={{ __html: stringWithLineBreaks(page.attributes.Content) }} />
+            <h1 className='mb-4'>{page.attributes.Title}</h1>
+            <p className='mt-4 text-left' dangerouslySetInnerHTML={{ __html: stringWithLineBreaks(page.attributes.Content) }} />
           </article>
         </Page>
       ) :
@@ -48,8 +48,8 @@ const pagePage: NextPage<IPagePageProps> = ({ pages, page }) => {
               className='max-w-[680px]'
               id='page-not-found'
             >
-              <h1 className='mb-4 max-sm:hyphens-auto'>Error 404: Page Not Found</h1>
-              <p className='mt-2 max-sm:hyphens-auto text-2xl'>The page you are looking for has moved, is no longer available, has been archived, or was not valid.</p>
+              <h1 className='mb-4'>Error 404: Page Not Found</h1>
+              <p className='mt-2 text-2xl'>The page you are looking for has moved, is no longer available, has been archived, or was not valid.</p>
             </article>
           </Page>
         )}

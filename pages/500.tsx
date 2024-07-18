@@ -13,8 +13,8 @@ const error500Page: NextPage = () => {
         className='max-w-[760px]'
         id='internal-server-error'
       >
-        <h1 className='mb-4 max-sm:hyphens-auto'>Error 500: Internal Server Error</h1>
-        <p className='mt-2 max-sm:hyphens-auto text-2xl'>The server encountered an internal error or misconfiguration and was unable to complete your request.</p>
+        <h1 className='mb-4'>Error 500: Internal Server Error</h1>
+        <p className='mt-2 text-2xl'>The server encountered an internal error or misconfiguration and was unable to complete your request.</p>
       </article>
     </Page>
   );

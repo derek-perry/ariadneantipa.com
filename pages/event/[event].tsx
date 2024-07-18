@@ -105,7 +105,7 @@ const EventPage: NextPage<IEventPageProps> = ({ event, prevUrl }) => {
               </div>
             ) : ''}
             {event.attributes.Name ? (
-              <h3 className='font-bold text-5xl max-md:text-4xl max-sm:hyphens-auto'>{event.attributes.Name}</h3>
+              <h3 className='font-bold text-5xl max-md:text-4xl'>{event.attributes.Name}</h3>
             ) : ''}
             {event.attributes.Day && event.attributes.Day.length ? (
               <div className='flex flex-col gap-4 mt-6'>
@@ -118,13 +118,13 @@ const EventPage: NextPage<IEventPageProps> = ({ event, prevUrl }) => {
                         <div
                           className='flex flex-row flex-wrap gap-y-0 gap-x-2'
                         >
-                          <p className='text-2xl max-sm:hyphens-auto'>{formatDate(DayItem.StartTime, DayItem.Timezone.data?.attributes.Offset)}</p>
+                          <p className='text-2xl'>{formatDate(DayItem.StartTime, DayItem.Timezone.data?.attributes.Offset)}</p>
                           {(DayItem.EndTime ? (
                             <div className='flex flex-row flex-wrap gap-y-0 gap-x-2'>
-                              <p className='text-2xl max-sm:hyphens-auto'> - </p>
-                              <p className='text-2xl max-sm:hyphens-auto'>{formatDate(DayItem.EndTime, DayItem.Timezone.data?.attributes.Offset)}</p>
+                              <p className='text-2xl'> - </p>
+                              <p className='text-2xl'>{formatDate(DayItem.EndTime, DayItem.Timezone.data?.attributes.Offset)}</p>
                               {(DayItem.Timezone.data ? (
-                                <p className='text-2xl max-sm:hyphens-auto'>{DayItem.Timezone.data.attributes.Abbreviation}</p>
+                                <p className='text-2xl'>{DayItem.Timezone.data.attributes.Abbreviation}</p>
                               ) : '')}
                             </div>
                           ) : '')}
@@ -133,7 +133,7 @@ const EventPage: NextPage<IEventPageProps> = ({ event, prevUrl }) => {
                       {DayItem.Price ? (
                         <>
                           <hr className='border-ariBlackDark !mb-1 !mt-2' />
-                          <p className='text-2xl max-sm:hyphens-auto' dangerouslySetInnerHTML={{ __html: stringWithLineBreaks(DayItem.Price) }} />
+                          <p className='text-2xl' dangerouslySetInnerHTML={{ __html: stringWithLineBreaks(DayItem.Price) }} />
                         </>
                       ) : ''}
                     </div>
@@ -143,13 +143,13 @@ const EventPage: NextPage<IEventPageProps> = ({ event, prevUrl }) => {
                         <div
                           className='bg-ariBlackDarker rounded shadow p-2 flex flex-row flex-wrap gap-y-0 gap-x-4'
                         >
-                          <p className='text-2xl max-sm:hyphens-auto'>{formatDate(DayItem.StartTime, DayItem.Timezone.data?.attributes.Offset)}</p>
+                          <p className='text-2xl'>{formatDate(DayItem.StartTime, DayItem.Timezone.data?.attributes.Offset)}</p>
                           {(DayItem.EndTime ? (
                             <div className='flex flex-row flex-wrap gap-y-0 gap-x-2 justify-center align-middle items-center'>
-                              <p className='text-2xl max-sm:hyphens-auto'> - </p>
-                              <p className='text-2xl max-sm:hyphens-auto'>{formatDate(DayItem.EndTime, DayItem.Timezone.data?.attributes.Offset)}</p>
+                              <p className='text-2xl'> - </p>
+                              <p className='text-2xl'>{formatDate(DayItem.EndTime, DayItem.Timezone.data?.attributes.Offset)}</p>
                               {(DayItem.Timezone.data ? (
-                                <p className='text-2xl max-sm:hyphens-auto'>{DayItem.Timezone.data.attributes.Abbreviation}</p>
+                                <p className='text-2xl'>{DayItem.Timezone.data.attributes.Abbreviation}</p>
                               ) : '')}
                             </div>
                           ) : '')}
@@ -161,7 +161,7 @@ const EventPage: NextPage<IEventPageProps> = ({ event, prevUrl }) => {
               </div>
             ) : ''}
             {event.attributes.Description ? (
-              <p className='mt-4 text-2xl max-sm:hyphens-auto text-left' dangerouslySetInnerHTML={{ __html: stringWithLineBreaks(event.attributes.Description) }} />
+              <p className='mt-4 text-2xl text-left' dangerouslySetInnerHTML={{ __html: stringWithLineBreaks(event.attributes.Description) }} />
             ) : ''}
           </article>
         </Page>
@@ -177,8 +177,8 @@ const EventPage: NextPage<IEventPageProps> = ({ event, prevUrl }) => {
               className='max-w-[680px]'
               id='event-not-found'
             >
-              <h1 className='mb-4 max-sm:hyphens-auto'>Error 404: Event Not Found</h1>
-              <p className='mt-2 max-sm:hyphens-auto text-2xl'>The event you are looking for has moved, is no longer available, has been archived, or was not valid.</p>
+              <h1 className='mb-4'>Error 404: Event Not Found</h1>
+              <p className='mt-2 text-2xl'>The event you are looking for has moved, is no longer available, has been archived, or was not valid.</p>
             </article>
           </Page>
         )}

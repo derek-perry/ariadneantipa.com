@@ -48,8 +48,8 @@ const ProjectPage: NextPage<IProjectPageProps> = ({ project, prevUrl }) => {
             className='max-w-[1000px]'
             id={checkNumberName(project.attributes.Name)}
           >
-            <h1 className='mb-4 max-sm:hyphens-auto'>{project.attributes.Name}</h1>
-            <p className='mt-4 max-sm:hyphens-auto text-left' dangerouslySetInnerHTML={{ __html: stringWithLineBreaks(project.attributes.Description) }} />
+            <h1 className='mb-4'>{project.attributes.Name}</h1>
+            <p className='mt-4 text-left' dangerouslySetInnerHTML={{ __html: stringWithLineBreaks(project.attributes.Description) }} />
           </article>
         </Page>
       ) :
@@ -64,8 +64,8 @@ const ProjectPage: NextPage<IProjectPageProps> = ({ project, prevUrl }) => {
               className='max-w-[680px]'
               id='project-not-found'
             >
-              <h1 className='mb-4 max-sm:hyphens-auto'>Error 404: Project Not Found</h1>
-              <p className='mt-2 max-sm:hyphens-auto text-2xl'>The project you are looking for has moved, is no longer available, has been archived, or was not valid.</p>
+              <h1 className='mb-4'>Error 404: Project Not Found</h1>
+              <p className='mt-2 text-2xl'>The project you are looking for has moved, is no longer available, has been archived, or was not valid.</p>
             </article>
           </Page>
         )}

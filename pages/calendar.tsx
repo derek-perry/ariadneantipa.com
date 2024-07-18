@@ -157,15 +157,16 @@ const calendarPage: NextPage = () => {
       description='AriadneAntipa.com is the official website for Ariadne Antipa - Pianist, Educator, and Conductor'
       url='calendar'
       image=''
+      classNameMain='!px-0'
     >
       <>
-        <h1>Calendar</h1>
+        <h1 className='px-8'>Calendar</h1>
         {isLoadingUpcomingEvents ? (
-          <h2 id='loading-upcoming-events' className='mt-12'>Loading Upcoming Events...</h2>
+          <h2 id='loading-upcoming-events' className='mt-12 px-8'>Loading Upcoming Events...</h2>
         ) : (
           (upcomingEvents && upcomingEvents.length ? (
             <section
-              className='bg-ariBlackDarkest mt-12  min-h-full w-full max-w-[600px] text-center'
+              className='bg-ariBlackDarkest mt-12 min-h-full w-full max-w-[600px] text-center'
               id='upcoming-events-container'
             >
               <hr className='hrFancy max-w-[600px] !mt-0' />
@@ -204,11 +205,11 @@ const calendarPage: NextPage = () => {
           ))
         )}
         {isLoadingPastEvents ? (
-          <h2 id='loading-past-events' className='mt-12'>Loading Past Events...</h2>
+          <h2 id='loading-past-events' className='mt-12 px-8'>Loading Past Events...</h2>
         ) : (
           (pastEvents && pastEvents.length ? (
             <section
-              className='bg-ariBlackDarkest mt-12  min-h-full w-full max-w-[600px] text-center'
+              className='bg-ariBlackDarkest mt-12 min-h-full w-full max-w-[600px] text-center'
               id='past-events-container'
             >
               <hr className='hrFancy max-w-[600px] !mt-0' />

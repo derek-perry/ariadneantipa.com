@@ -58,11 +58,12 @@ const calendarPage: NextPage = () => {
       description='AriadneAntipa.com is the official website for Ariadne Antipa - Pianist, Educator, and Conductor'
       url='projects'
       image=''
+      classNameMain='!px-0'
     >
       <>
-        <h1>Projects</h1>
+        <h1 className='px-8'>Projects</h1>
         {isLoadingProjects ? (
-          <h2 id='loading-projects' className='mt-12'>Loading Projects...</h2>
+          <h2 id='loading-projects' className='mt-12 px-8'>Loading Projects...</h2>
         ) : (
           (projects && projects.length ? (
             <section

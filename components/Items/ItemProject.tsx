@@ -30,8 +30,8 @@ const ItemProject: FC<IItemProjectProps> = ({
       href={`project/${Name}?id=${id}`}
       title={Name}
       className='w-auto min-w-auto'
-    ><h3 className='font-bold text-4xl max-sm:hyphens-auto'>{Name}</h3></LinkInternal>
-      {Description ? (<p className='text-ariWhiteHover text-justify text-xl max-sm:hyphens-auto' dangerouslySetInnerHTML={{ __html: stringWithLineBreaks(Description.split(' ').slice(0, 30).join(' ') + '...') }} />) : ''}
+    ><h3 className='font-bold text-4xl'>{Name}</h3></LinkInternal>
+      {Description ? (<p className='text-ariWhiteHover text-justify text-xl' dangerouslySetInnerHTML={{ __html: stringWithLineBreaks(Description.split(' ').slice(0, 30).join(' ') + '...') }} />) : ''}
       <ButtonInternal
         href={`project/${Name}?id=${id}`}
         title={Name}

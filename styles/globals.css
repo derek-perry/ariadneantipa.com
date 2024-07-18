@@ -56,12 +56,6 @@ a {
   transition-duration: 100ms;
 }
 
-@media (max-width: 640px) {
-  a {
-    word-break: break-all;
-  }
-}
-
 a:active {
   text-decoration-line: none;
   color: #9B9990;

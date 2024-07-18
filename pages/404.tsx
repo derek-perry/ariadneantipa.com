@@ -13,8 +13,8 @@ const error404Page: NextPage = () => {
         className='max-w-[680px]'
         id='content-not-found'
       >
-        <h1 className='mb-4 max-sm:hyphens-auto'>Error 404: Not Found</h1>
-        <p className='mt-2 max-sm:hyphens-auto text-2xl'>The content you are looking for has moved, is no longer available, has been archived, or was not valid.</p>
+        <h1 className='mb-4'>Error 404: Not Found</h1>
+        <p className='mt-2 text-2xl'>The content you are looking for has moved, is no longer available, has been archived, or was not valid.</p>
       </article>
     </Page>
   );

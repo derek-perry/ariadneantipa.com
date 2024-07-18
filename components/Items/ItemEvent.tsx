@@ -82,7 +82,7 @@ const ItemEvent: FC<IItemEventProps> = ({
         href={`event/${Name}?id=${id}`}
         title={Name}
         className='w-auto min-w-auto'
-      ><h3 className='font-bold text-4xl max-sm:hyphens-auto'>{Name}</h3></LinkInternal>
+      ><h3 className='font-bold text-4xl'>{Name}</h3></LinkInternal>
       {Day && Day.length ? (
         <div className='flex flex-col gap-4'>
           {Day.map((DayItem) => (
@@ -94,13 +94,13 @@ const ItemEvent: FC<IItemEventProps> = ({
                   <div
                     className='flex flex-row flex-wrap gap-y-0 gap-x-2 justify-center align-middle items-center'
                   >
-                    <p className='text-2xl max-sm:hyphens-auto'>{formatDate(DayItem.StartTime, DayItem.Timezone.data?.attributes.Offset)}</p>
+                    <p className='text-2xl'>{formatDate(DayItem.StartTime, DayItem.Timezone.data?.attributes.Offset)}</p>
                     {(DayItem.EndTime ? (
                       <div className='flex flex-row flex-wrap gap-y-0 gap-x-2 justify-center align-middle items-center'>
-                        <p className='text-2xl max-sm:hyphens-auto'> - </p>
-                        <p className='text-2xl max-sm:hyphens-auto'>{formatDate(DayItem.EndTime, DayItem.Timezone.data?.attributes.Offset)}</p>
+                        <p className='text-2xl'> - </p>
+                        <p className='text-2xl'>{formatDate(DayItem.EndTime, DayItem.Timezone.data?.attributes.Offset)}</p>
                         {(DayItem.Timezone.data ? (
-                          <p className='text-2xl max-sm:hyphens-auto'>{DayItem.Timezone.data.attributes.Abbreviation}</p>
+                          <p className='text-2xl'>{DayItem.Timezone.data.attributes.Abbreviation}</p>
                         ) : '')}
                       </div>
                     ) : '')}
@@ -109,7 +109,7 @@ const ItemEvent: FC<IItemEventProps> = ({
                 {DayItem.Price ? (
                   <>
                     <hr className='border-ariBlackDark !mb-1 !mt-2' />
-                    <p className='text-2xl max-sm:hyphens-auto' dangerouslySetInnerHTML={{ __html: stringWithLineBreaks(DayItem.Price) }} />
+                    <p className='text-2xl' dangerouslySetInnerHTML={{ __html: stringWithLineBreaks(DayItem.Price) }} />
                   </>
                 ) : ''}
               </div>
@@ -119,13 +119,13 @@ const ItemEvent: FC<IItemEventProps> = ({
                   <div
                     className='bg-ariBlackDarker rounded shadow p-2 flex flex-row flex-wrap gap-y-0 gap-x-2 justify-center align-middle items-center'
                   >
-                    <p className='text-2xl max-sm:hyphens-auto'>{formatDate(DayItem.StartTime, DayItem.Timezone.data?.attributes.Offset)}</p>
+                    <p className='text-2xl'>{formatDate(DayItem.StartTime, DayItem.Timezone.data?.attributes.Offset)}</p>
                     {(DayItem.EndTime ? (
                       <div className='flex flex-row flex-wrap gap-y-0 gap-x-2 justify-center align-middle items-center'>
-                        <p className='text-2xl max-sm:hyphens-auto'> - </p>
-                        <p className='text-2xl max-sm:hyphens-auto'>{formatDate(DayItem.EndTime, DayItem.Timezone.data?.attributes.Offset)}</p>
+                        <p className='text-2xl'> - </p>
+                        <p className='text-2xl'>{formatDate(DayItem.EndTime, DayItem.Timezone.data?.attributes.Offset)}</p>
                         {(DayItem.Timezone.data ? (
-                          <p className='text-2xl max-sm:hyphens-auto'>{DayItem.Timezone.data.attributes.Abbreviation}</p>
+                          <p className='text-2xl'>{DayItem.Timezone.data.attributes.Abbreviation}</p>
                         ) : '')}
                       </div>
                     ) : '')}
@@ -137,7 +137,7 @@ const ItemEvent: FC<IItemEventProps> = ({
         </div>
       ) : ''}
       {Description ? (
-        <p className='text-ariWhiteHover text-justify text-xl max-sm:hyphens-auto' dangerouslySetInnerHTML={{ __html: fixDescription(Description) }} />
+        <p className='text-ariWhiteHover text-justify text-xl' dangerouslySetInnerHTML={{ __html: fixDescription(Description) }} />
       ) : ''}
       <ButtonInternal
         href={`event/${Name}?id=${id}`}

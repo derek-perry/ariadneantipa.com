@@ -136,7 +136,6 @@ const homePage: NextPage = () => {
       url=''
       image=''
       classNameMain='!px-0 !pt-0 gap-16'
-      showHeader={false}
     >
       <>
         <Hero />
@@ -149,7 +148,7 @@ const homePage: NextPage = () => {
         </section>
 
         <section
-          className='flex flex-col justify-center align-middle items-top text-center gap-16 px-8'
+          className='flex flex-col justify-center align-middle items-top text-center gap-16'
           id='events-and-projects'
         >
           {isLoadingUpcomingEvents ? (
