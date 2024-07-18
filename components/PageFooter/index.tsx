@@ -4,8 +4,8 @@ const PageFooter = (): JSX.Element => {
   const currentYear: number = new Date().getFullYear();
 
   return (
-    <footer className='border-t border-ariGold bg-ariBlack text-white text-xl w-full'>
-      <div className='pt-16 pb-12 px-9 flex flex-col gap-y-10 text-center items-center justify-center'>
+    <footer id='footer' role='contentinfo' className='border-t border-ariGold bg-ariBlack text-white text-xl w-full'>
+      <div className='pt-16 pb-12 px-8 flex flex-col gap-y-10 text-center items-center justify-center'>
         <div className='flex flex-row flex-wrap gap-x-9 gap-y-7 text-center items-center justify-center'>
           <LinkInternal href='' title='Home'>Home</LinkInternal>
           <LinkInternal href='about' title='Biography'>Biography</LinkInternal>

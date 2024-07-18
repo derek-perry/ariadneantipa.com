@@ -88,36 +88,12 @@ const EventPage: NextPage<IEventPageProps> = ({ event, prevUrl }) => {
           description={event.attributes.Description ? event.attributes.Description : 'AriadneAntipa.com is the official website for Ariadne Antipa - Pianist, Educator, and Conductor'}
           url={`event/${checkNumberName(event.attributes.Name)}`}
           image={event.attributes.Image?.data ? event.attributes.Image.data?.attributes.url : ``}
+          prevUrl={prevUrl ? prevUrl : ''}
         >
           <article
             className='max-w-[1000px]'
             id={checkNumberName(event.attributes.Name)}
           >
-            {prevUrl && (prevUrl === 'http://localhost:3000/calendar' || prevUrl === 'https://ariadneantipa.netlify.app/calendar' || prevUrl === 'https://ariadneantipa.com/calendar') ? (
-              <div
-                className='mb-8'
-              >
-                <LinkInternal
-                  title='Back to Calendar'
-                  href='calendar'
-                >
-                  &larr; Back to Calendar
-                </LinkInternal>
-              </div>
-            ) : (
-              ((prevUrl === 'http://localhost:3000/' || prevUrl === 'https://ariadneantipa.netlify.app/' || prevUrl === 'https://ariadneantipa.com/') ? (
-                <div
-                  className='mb-8'
-                >
-                  <LinkInternal
-                    title='Back'
-                    href='/'
-                  >
-                    &larr; Back
-                  </LinkInternal>
-                </div>
-              ) : '')
-            )}
             {event.attributes.Image?.data ? (
               <div className='mb-8 min-w-auto'>
                 <img

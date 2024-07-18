@@ -165,13 +165,14 @@ const calendarPage: NextPage = () => {
         ) : (
           (upcomingEvents && upcomingEvents.length ? (
             <section
-              className='w-full mt-12 flex flex-col gap-4 text-center'
+              className='bg-ariBlackDarkest mt-12  min-h-full w-full max-w-[600px] text-center'
               id='upcoming-events-container'
             >
+              <hr className='hrFancy max-w-[600px] !mt-0' />
               {(upcomingEvents.length > 1 ? (
-                <h2 id='upcoming-events'>Upcoming Events</h2>
+                <h2 className='mb-4' id='upcoming-events'>Upcoming Events</h2>
               ) : (
-                <h2 id='upcoming-event'>Upcoming Event</h2>
+                <h2 className='mb-4' id='upcoming-event'>Upcoming Event</h2>
               ))}
               <div
                 className='w-full flex flex-col gap-6 justify-center align-middle items-center text-center'
@@ -188,20 +189,33 @@ const calendarPage: NextPage = () => {
                 ))}
               </div>
             </section>
-          ) : '')
+          ) : (
+            <section
+              className='bg-ariBlackDarkest mt-12 min-h-full w-full max-w-[600px] text-center'
+              id='no-upcoming-events-container'
+            >
+              <hr className='hrFancy max-w-[600px] !mt-0' />
+              <h2 className='mb-4' id='no-upcoming-events'>No Upcoming Events</h2>
+              <div className='mb-4 flex flex-row flex-wrap gap-y-0 gap-x-2 justify-center align-middle items-center text-center'>
+                <p>There are currently no upcoming events.</p>
+                <p>Below are previous events.</p>
+              </div>
+            </section>
+          ))
         )}
         {isLoadingPastEvents ? (
           <h2 id='loading-past-events' className='mt-12'>Loading Past Events...</h2>
         ) : (
           (pastEvents && pastEvents.length ? (
             <section
-              className='w-full mt-12 flex flex-col gap-4 text-center'
+              className='bg-ariBlackDarkest mt-12  min-h-full w-full max-w-[600px] text-center'
               id='past-events-container'
             >
+              <hr className='hrFancy max-w-[600px] !mt-0' />
               {(pastEvents.length > 1 ? (
-                <h2 id='past-events'>Past Events</h2>
+                <h2 className='mb-4' id='past-events'>Past Events</h2>
               ) : (
-                <h2 id='past-event'>Past Event</h2>
+                <h2 className='mb-4' id='past-event'>Past Event</h2>
               ))}
               <div
                 className='w-full flex flex-col gap-6 justify-center align-middle items-center text-center'

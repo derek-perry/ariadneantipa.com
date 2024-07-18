@@ -136,6 +136,7 @@ const homePage: NextPage = () => {
       url=''
       image=''
       classNameMain='!px-0 !pt-0 gap-16'
+      showHeader={false}
     >
       <>
         <Hero />
@@ -167,7 +168,7 @@ const homePage: NextPage = () => {
                 ))}
                 <div
                   className='w-full flex flex-col gap-6 justify-center align-middle items-center text-center'
-                  id='events-list'
+                  id='upcoming-events-list'
                 >
                   {upcomingEvents.map((upcomingEvent) => (
                     <ItemEvent

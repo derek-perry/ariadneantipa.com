@@ -42,36 +42,12 @@ const ProjectPage: NextPage<IProjectPageProps> = ({ project, prevUrl }) => {
           description={project.attributes.SEODescription ? project.attributes.SEODescription : 'AriadneAntipa.com is the official website for Ariadne Antipa - Pianist, Educator, and Conductor'}
           url={`project/${checkNumberName(project.attributes.Name)}`}
           image={project.attributes.Image?.data ? project.attributes.Image.data?.attributes.url : ``}
+          prevUrl={prevUrl ? prevUrl : ''}
         >
           <article
             className='max-w-[1000px]'
             id={checkNumberName(project.attributes.Name)}
           >
-            {prevUrl && (prevUrl === 'http://localhost:3000/projects' || prevUrl === 'https://ariadneantipa.netlify.app/projects' || prevUrl === 'https://ariadneantipa.com/projects') ? (
-              <div
-                className='mb-8'
-              >
-                <LinkInternal
-                  title='Back to Projects'
-                  href='projects'
-                >
-                  &larr; Back to Projects
-                </LinkInternal>
-              </div>
-            ) : (
-              ((prevUrl === 'http://localhost:3000/' || prevUrl === 'https://ariadneantipa.netlify.app/' || prevUrl === 'https://ariadneantipa.com/') ? (
-                <div
-                  className='mb-8'
-                >
-                  <LinkInternal
-                    title='Back'
-                    href='/'
-                  >
-                    &larr; Back
-                  </LinkInternal>
-                </div>
-              ) : '')
-            )}
             <h1 className='mb-4 max-sm:hyphens-auto'>{project.attributes.Name}</h1>
             <p className='mt-4 max-sm:hyphens-auto text-left' dangerouslySetInnerHTML={{ __html: stringWithLineBreaks(project.attributes.Description) }} />
           </article>

@@ -14,7 +14,7 @@ const SiteHead: FC<ISiteHeadProps> = ({
   url,
   image
 }): JSX.Element => {
-  const siteUrl = process.env.NEXT_PUBLIC_DOMAIN_URL ? process.env.NEXT_PUBLIC_DOMAIN_URL : 'https://ariadneantipa.com';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ? process.env.NEXT_PUBLIC_SITE_URL : 'https://ariadneantipa.com';
   const titleValid = title ? title : '';
   const descriptionValid = description ? description : '';
   const urlValid = url ? url : '';
