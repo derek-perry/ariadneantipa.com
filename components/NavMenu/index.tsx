@@ -8,6 +8,15 @@ interface INavMenuProps {
 const NavMenu: FC<INavMenuProps> = ({ className }): JSX.Element => {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ? process.env.NEXT_PUBLIC_SITE_URL : 'https://ariadneantipa.com';
   const [dropdown, setDropdown] = useState(false);
+
+  const toggleDropdown = () => setDropdown(!dropdown);
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLAnchorElement>) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      toggleDropdown();
+    };
+  };
   return (
     <div className='order-2 flex gap-x-2 shrink-0'>
       <a
@@ -15,9 +24,8 @@ const NavMenu: FC<INavMenuProps> = ({ className }): JSX.Element => {
         tabIndex={0}
         aria-hidden='true'
         className='relative flex align-middle justify-center items-middle text-ariGold hover:text-white no-underline hover:underline focus:no-underline cursor-pointer'
-        onClick={() => {
-          setDropdown(!dropdown);
-        }}
+        onClick={toggleDropdown}
+        onKeyDown={handleKeyDown}
       >
         <span
           className='max-[365px]:hidden mr-2 mt-0.5 inline font-extrabold'

@@ -88,11 +88,11 @@ const ItemEvent: FC<IItemEventProps> = ({
           {Day.map((DayItem) => (
             (DayItem.StartTime && DayItem.Price) ? (
               <div
-                className='bg-ariBlackDarker rounded shadow p-2'
+                className='bg-ariBlackDarker rounded shadow py-2'
               >
                 {DayItem.StartTime ? (
                   <div
-                    className='flex flex-row flex-wrap gap-y-0 gap-x-2 justify-center align-middle items-center'
+                    className='flex flex-row flex-wrap gap-y-0 gap-x-2 px-2 justify-center align-middle items-center'
                   >
                     <p className='text-2xl'>{formatDate(DayItem.StartTime, DayItem.Timezone.data?.attributes.Offset)}</p>
                     {(DayItem.EndTime ? (
@@ -108,8 +108,8 @@ const ItemEvent: FC<IItemEventProps> = ({
                 ) : ''}
                 {DayItem.Price ? (
                   <>
-                    <hr className='border-ariBlackDark !mb-1 !mt-2' />
-                    <p className='text-2xl' dangerouslySetInnerHTML={{ __html: stringWithLineBreaks(DayItem.Price) }} />
+                    <hr className='border-ariGrey !mb-1 !mt-2' />
+                    <p className='text-2xl px-2' dangerouslySetInnerHTML={{ __html: stringWithLineBreaks(DayItem.Price) }} />
                   </>
                 ) : ''}
               </div>
@@ -117,7 +117,7 @@ const ItemEvent: FC<IItemEventProps> = ({
               <>
                 {DayItem.StartTime ? (
                   <div
-                    className='bg-ariBlackDarker rounded shadow p-2 flex flex-row flex-wrap gap-y-0 gap-x-2 justify-center align-middle items-center'
+                    className='bg-ariBlackDarker rounded shadow flex flex-row flex-wrap gap-y-0 gap-x-2 p-2 justify-center align-middle items-center'
                   >
                     <p className='text-2xl'>{formatDate(DayItem.StartTime, DayItem.Timezone.data?.attributes.Offset)}</p>
                     {(DayItem.EndTime ? (

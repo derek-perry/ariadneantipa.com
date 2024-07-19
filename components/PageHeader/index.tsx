@@ -29,7 +29,7 @@ const PageHeader: FC<IPageHeaderProps> = ({
             <LinkInternal href='teaching-philosophy' title='Teaching Philosophy' className='no-underline hover:!underline'>Teaching Philosophy</LinkInternal>
             <LinkInternal href='contact' title='Contact' className='no-underline hover:!underline'>Contact</LinkInternal>
           </div>
-          <div className='min-[969px]:hidden'><NavMenu /></div>
+          <div className='min-[969px]:hidden flex flex-row justify-left align-middle items-middle'><NavMenu /></div>
         </div>
       </header>
       {prevUrl && (prevUrl === 'http://localhost:3000/calendar' || prevUrl === 'https://ariadneantipa.netlify.app/calendar' || prevUrl === 'https://ariadneantipa.com/calendar') ? (

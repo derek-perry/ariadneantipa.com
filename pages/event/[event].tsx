@@ -2,7 +2,7 @@ import { GetServerSideProps, NextPage } from 'next';
 import { ToWords } from 'to-words';
 import { apiGetEvent, eventProps } from '../../lib/api';
 import Page from '../../components/Page';
-import LinkInternal from '../../components/Links/LinkInternal';
+import {Event} from 'schema-dts';
 
 const toWords = new ToWords({
   localeCode: 'en-US',
@@ -19,6 +19,14 @@ interface IEventPageProps {
 };
 
 const EventPage: NextPage<IEventPageProps> = ({ event, prevUrl }) => {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ? process.env.NEXT_PUBLIC_SITE_URL : 'https://ariadneantipa.com';
+  
+  const eventJSON: Event = {
+    '@type': 'Event',
+    name: `${event.attributes.Name} - Ariadne Antipa`,
+    description: event.attributes.Description ? event.attributes.Description : 'AriadneAntipa.com is the official website for Ariadne Antipa - Pianist, Educator, and Conductor',
+  };
+
   if (event.attributes.Day && event.attributes.Day.length) {
     event.attributes.Day.sort((a, b) => {
       const aStartTime = new Date(a.StartTime).getTime();
@@ -90,6 +98,7 @@ const EventPage: NextPage<IEventPageProps> = ({ event, prevUrl }) => {
           image={event.attributes.Image?.data ? event.attributes.Image.data?.attributes.url : ``}
           prevUrl={prevUrl ? prevUrl : ''}
         >
+          <script type='application/ld+json'>{JSON.stringify(eventJSON)}</script>
           <article
             className='max-w-[1000px]'
             id={checkNumberName(event.attributes.Name)}
@@ -112,11 +121,11 @@ const EventPage: NextPage<IEventPageProps> = ({ event, prevUrl }) => {
                 {event.attributes.Day.map((DayItem) => (
                   (DayItem.StartTime && DayItem.Price) ? (
                     <div
-                      className='bg-ariBlackDarker rounded shadow p-2'
+                      className='bg-ariBlackDarker rounded shadow py-2'
                     >
                       {DayItem.StartTime ? (
                         <div
-                          className='flex flex-row flex-wrap gap-y-0 gap-x-2'
+                          className='flex flex-row flex-wrap gap-y-0 gap-x-2 px-2'
                         >
                           <p className='text-2xl'>{formatDate(DayItem.StartTime, DayItem.Timezone.data?.attributes.Offset)}</p>
                           {(DayItem.EndTime ? (
@@ -132,8 +141,8 @@ const EventPage: NextPage<IEventPageProps> = ({ event, prevUrl }) => {
                       ) : ''}
                       {DayItem.Price ? (
                         <>
-                          <hr className='border-ariBlackDark !mb-1 !mt-2' />
-                          <p className='text-2xl' dangerouslySetInnerHTML={{ __html: stringWithLineBreaks(DayItem.Price) }} />
+                          <hr className='border-ariGrey !mb-1 !mt-2' />
+                          <p className='text-2xl px-2' dangerouslySetInnerHTML={{ __html: stringWithLineBreaks(DayItem.Price) }} />
                         </>
                       ) : ''}
                     </div>
@@ -141,7 +150,7 @@ const EventPage: NextPage<IEventPageProps> = ({ event, prevUrl }) => {
                     <>
                       {DayItem.StartTime ? (
                         <div
-                          className='bg-ariBlackDarker rounded shadow p-2 flex flex-row flex-wrap gap-y-0 gap-x-4'
+                          className='bg-ariBlackDarker rounded shadow flex flex-row flex-wrap gap-y-0 gap-x-4 p-2'
                         >
                           <p className='text-2xl'>{formatDate(DayItem.StartTime, DayItem.Timezone.data?.attributes.Offset)}</p>
                           {(DayItem.EndTime ? (

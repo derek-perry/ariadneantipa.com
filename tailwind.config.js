@@ -16,6 +16,7 @@ module.exports = {
         ariWhiteHover: '#BCB9AD',
         ariWhiteFocus: '#AFADA1',
         ariWhiteActive: '#9B9990',
+        ariGrey: '#282826',
         ariGold: '#C5A974',
       }
     },
