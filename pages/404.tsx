@@ -5,7 +5,7 @@ const error404Page: NextPage = () => {
   return (
     <Page
       title='Error 404: Not Found - Ariadne Antipa'
-      description='AriadneAntipa.com is the official website for Ariadne Antipa - Pianist, Educator, and Conductor'
+      description='Ariadne Antipa is a pianist, conductor, and educator residing in Cincinnati, Ohio. She is recognized for her creative programming and exquisitely played concerts.'
       url='404'
       image=''
     >

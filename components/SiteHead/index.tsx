@@ -15,8 +15,8 @@ const SiteHead: FC<ISiteHeadProps> = ({
   image
 }): JSX.Element => {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ? process.env.NEXT_PUBLIC_SITE_URL : 'https://ariadneantipa.com';
-  const titleValid = title ? title : '';
-  const descriptionValid = description ? description : '';
+  const titleValid = title ? title : 'Ariadne Antipa - Pianist | Educator | Conductor';
+  const descriptionValid = description ? description : 'Ariadne Antipa is a pianist, conductor, and educator residing in Cincinnati, Ohio. She is recognized for her creative programming and exquisitely played concerts.';
   const urlValid = url ? url : '';
   const imageValid = image ? image : (siteUrl + '/banner.png');
   const imageAltValid = image ? titleValid : 'Banner for AriadneAntipa.com with portrait and white text on black background';

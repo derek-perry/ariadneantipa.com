@@ -16,8 +16,7 @@ const ItemProject: FC<IItemProjectProps> = ({
   className
 }): JSX.Element => {
   function stringWithLineBreaks(inputString: string) {
-    var outputString = inputString?.toString().replace(/(?:\r\n|\r|\n)/g, '<br />');
-    return outputString;
+    return inputString?.toString().replace(/(?:\r\n|\r|\n)/g, '<br />');
   };
 
   return (

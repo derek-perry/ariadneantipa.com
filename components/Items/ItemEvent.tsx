@@ -19,8 +19,7 @@ const ItemEvent: FC<IItemEventProps> = ({
   className
 }): JSX.Element => {
   function stringWithLineBreaks(inputString: string) {
-    var outputString = inputString?.toString().replace(/(?:\r\n|\r|\n)/g, '<br />');
-    return outputString;
+    return inputString?.toString().replace(/(?:\r\n|\r|\n)/g, '<br />');
   };
 
   function fixDescription(inputString: string) {

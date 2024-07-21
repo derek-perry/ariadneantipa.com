@@ -132,7 +132,7 @@ const homePage: NextPage = () => {
   return (
     <Page
       title='Ariadne Antipa - Pianist | Educator | Conductor'
-      description='AriadneAntipa.com is the official website for Ariadne Antipa - Pianist, Educator, and Conductor'
+      description='Ariadne Antipa is a pianist, conductor, and educator residing in Cincinnati, Ohio. She is recognized for her creative programming and exquisitely played concerts.'
       url=''
       image=''
       classNameMain='!px-0 !pt-0 gap-16'

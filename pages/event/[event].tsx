@@ -2,7 +2,7 @@ import { GetServerSideProps, NextPage } from 'next';
 import { ToWords } from 'to-words';
 import { apiGetEvent, eventProps } from '../../lib/api';
 import Page from '../../components/Page';
-import {Event} from 'schema-dts';
+import { MusicEvent, WithContext } from 'schema-dts';
 
 const toWords = new ToWords({
   localeCode: 'en-US',
@@ -20,12 +20,6 @@ interface IEventPageProps {
 
 const EventPage: NextPage<IEventPageProps> = ({ event, prevUrl }) => {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ? process.env.NEXT_PUBLIC_SITE_URL : 'https://ariadneantipa.com';
-  
-  const eventJSON: Event = {
-    '@type': 'Event',
-    name: `${event.attributes.Name} - Ariadne Antipa`,
-    description: event.attributes.Description ? event.attributes.Description : 'AriadneAntipa.com is the official website for Ariadne Antipa - Pianist, Educator, and Conductor',
-  };
 
   if (event.attributes.Day && event.attributes.Day.length) {
     event.attributes.Day.sort((a, b) => {
@@ -45,8 +39,15 @@ const EventPage: NextPage<IEventPageProps> = ({ event, prevUrl }) => {
     };
   };
   function stringWithLineBreaks(inputString: string) {
-    var outputString = inputString?.toString().replace(/(?:\r\n|\r|\n)/g, '<br />');
-    return outputString;
+    return inputString?.toString().replace(/(?:\r\n|\r|\n)/g, '<br />');
+  };
+
+  function fixDescription(inputString: string) {
+    if (inputString?.split(' ').length >= 30) {
+      return stringWithLineBreaks(inputString?.split(' ').slice(0, 30).join(' ') + '...');
+    } else {
+      return stringWithLineBreaks(inputString);
+    };
   };
 
   function formatDate(dateTime: string, timezoneOffset?: string) {
@@ -88,17 +89,37 @@ const EventPage: NextPage<IEventPageProps> = ({ event, prevUrl }) => {
     };
   };
 
+  const lastDayIndex = event.attributes.Day && event.attributes.Day.length ? event.attributes.Day.length - 1 : 0;
+  function JsonLd<T extends MusicEvent>(json: WithContext<T>): string {
+    return JSON.stringify(json);
+  };
+  const eventJSON = JsonLd<MusicEvent>({
+    "@context": "https://schema.org",
+    '@type': 'MusicEvent',
+    name: `${event.attributes.Name} - Ariadne Antipa`,
+    description: event.attributes.Description ? fixDescription(event.attributes.Description) : 'Ariadne Antipa is a pianist, conductor, and educator residing in Cincinnati, Ohio. She is recognized for her creative programming and exquisitely played concerts.',
+    url: `${siteUrl}/event/${checkNumberName(event.attributes.Name)}?id=${event.id}`,
+    startDate: event.attributes.Day && event.attributes.Day.length ? new Date(event.attributes.Day[0].StartTime).toISOString() : '',
+    endDate: event.attributes.Day && event.attributes.Day.length ? new Date(event.attributes.Day[lastDayIndex].EndTime).toISOString() : '',
+    image: event.attributes.Image?.data ? event.attributes.Image.data?.attributes.url : '',
+    performer: {
+      '@type': 'Person',
+      name: 'Ariadne Antipa',
+      sameAs: 'https://ariadneantipa.com'
+    }
+  });
+
   return (
     <>
       {event && event.attributes.Name ? (
         <Page
           title={`${event.attributes.Name} - Ariadne Antipa`}
-          description={event.attributes.Description ? event.attributes.Description : 'AriadneAntipa.com is the official website for Ariadne Antipa - Pianist, Educator, and Conductor'}
+          description={event.attributes.Description ? event.attributes.Description : 'Ariadne Antipa is a pianist, conductor, and educator residing in Cincinnati, Ohio. She is recognized for her creative programming and exquisitely played concerts.'}
           url={`event/${checkNumberName(event.attributes.Name)}`}
           image={event.attributes.Image?.data ? event.attributes.Image.data?.attributes.url : ``}
           prevUrl={prevUrl ? prevUrl : ''}
         >
-          <script type='application/ld+json'>{JSON.stringify(eventJSON)}</script>
+          <script type='application/ld+json'>{eventJSON}</script>
           <article
             className='max-w-[1000px]'
             id={checkNumberName(event.attributes.Name)}
@@ -178,7 +199,7 @@ const EventPage: NextPage<IEventPageProps> = ({ event, prevUrl }) => {
         (
           <Page
             title='Event Not Found - Ariadne Antipa'
-            description='AriadneAntipa.com is the official website for Ariadne Antipa - Pianist, Educator, and Conductor'
+            description='Ariadne Antipa is a pianist, conductor, and educator residing in Cincinnati, Ohio. She is recognized for her creative programming and exquisitely played concerts.'
             url='event/not-found'
             image=''
           >

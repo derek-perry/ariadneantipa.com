@@ -30,8 +30,7 @@ const ProjectPage: NextPage<IProjectPageProps> = ({ project, prevUrl }) => {
   };
 
   function stringWithLineBreaks(inputString: string) {
-    var outputString = inputString.toString().replace(/(?:\r\n|\r|\n)/g, '<br />');
-    return outputString;
+    return inputString.toString().replace(/(?:\r\n|\r|\n)/g, '<br />');
   };
 
   return (
@@ -39,7 +38,7 @@ const ProjectPage: NextPage<IProjectPageProps> = ({ project, prevUrl }) => {
       {project && project.attributes.Name ? (
         <Page
           title={`${project.attributes.Name} - Ariadne Antipa`}
-          description={project.attributes.SEODescription ? project.attributes.SEODescription : 'AriadneAntipa.com is the official website for Ariadne Antipa - Pianist, Educator, and Conductor'}
+          description={project.attributes.SEODescription ? project.attributes.SEODescription : 'Ariadne Antipa is a pianist, conductor, and educator residing in Cincinnati, Ohio. She is recognized for her creative programming and exquisitely played concerts.'}
           url={`project/${checkNumberName(project.attributes.Name)}`}
           image={project.attributes.Image?.data ? project.attributes.Image.data?.attributes.url : ``}
           prevUrl={prevUrl ? prevUrl : ''}
@@ -56,7 +55,7 @@ const ProjectPage: NextPage<IProjectPageProps> = ({ project, prevUrl }) => {
         (
           <Page
             title='Project Not Found - Ariadne Antipa'
-            description='AriadneAntipa.com is the official website for Ariadne Antipa - Pianist, Educator, and Conductor'
+            description='Ariadne Antipa is a pianist, conductor, and educator residing in Cincinnati, Ohio. She is recognized for her creative programming and exquisitely played concerts.'
             url='project/not-found'
             image=''
           >

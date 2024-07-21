@@ -55,7 +55,7 @@ const calendarPage: NextPage = () => {
   return (
     <Page
       title='Projects - Ariadne Antipa'
-      description='AriadneAntipa.com is the official website for Ariadne Antipa - Pianist, Educator, and Conductor'
+      description='Ariadne Antipa is a pianist, conductor, and educator residing in Cincinnati, Ohio. She is recognized for her creative programming and exquisitely played concerts.'
       url='projects'
       image=''
       classNameMain='!px-0'
