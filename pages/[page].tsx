@@ -14,8 +14,27 @@ const pagePage: NextPage<IPagePageProps> = ({ pages, page }) => {
     page = null;
   };
 
-  function stringWithLineBreaks(inputString: string) {
-    return inputString.toString().replace(/(?:\r\n|\r|\n)/g, '<br />');
+  function markdownToHtml(content: string): string {
+    // Convert headers to HTML <h> tags with ids
+    content = content.replace(/^(#+)\s+(.*)$/gm, (match, hashes, headerText) => {
+      const level = hashes.length;
+      const id = headerText.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+      return `<h${level} id='${id}'>${headerText}</h${level}>`;
+    });
+
+    // Convert bold text (**text** or __text__)
+    content = content.replace(/\*\*(.*?)\*\*|__(.*?)__/g, '<strong>$1$2</strong>');
+
+    // Convert italic text (*text* or _text_)
+    content = content.replace(/\*(.*?)\*|_(.*?)_/g, '<em>$1$2</em>');
+
+    // Convert links ([text](url))
+    content = content.replace(/\[([^\]]+)\]\((.*?)\)/g, '<a href="$2">$1</a>');
+
+    // Convert line breaks to <br> tags
+    content = content.replace(/(?:\r\n|\r|\n)/g, '<br />');
+
+    return content;
   };
 
   return (
@@ -28,11 +47,11 @@ const pagePage: NextPage<IPagePageProps> = ({ pages, page }) => {
           image={page.attributes.Image?.data ? page.attributes.Image.data?.attributes.url : ``}
         >
           <article
-            className='max-w-[1000px]'
+            className='max-w-[1000px] w-full'
             id={page.attributes.Title}
           >
             <h1 className='mb-4'>{page.attributes.Title}</h1>
-            <p className='mt-4 text-left' dangerouslySetInnerHTML={{ __html: stringWithLineBreaks(page.attributes.Content) }} />
+            <p className='mt-4 text-left' dangerouslySetInnerHTML={{ __html: markdownToHtml(page.attributes.Content) }} />
           </article>
         </Page>
       ) :

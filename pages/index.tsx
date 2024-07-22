@@ -32,7 +32,7 @@ const homePage: NextPage = () => {
           setIsLoadingUpcomingEvents(true);
           const fetchedData = [];
           const { data } = await api.get(
-            `events?pagination[page]=1&pagination[pageSize]=10&filters[Day][StartTime][$gte]=${currentDateTimeISO}&sort[0]=id:desc&populate[Day][fields][4]=StartTime&populate[Day][fields][5]=EndTime&populate[Day][fields][6]=Price&populate[Day][populate][0]=Timezone`
+            `events?pagination[page]=1&pagination[pageSize]=10&filters[Day][StartTime][$gte]=${currentDateTimeISO}&sort[0]=id:desc&populate[Day][fields][4]=StartTime&populate[Day][fields][5]=EndTime&populate[Day][fields][6]=Price&populate[Day][populate][0]=Timezone&populate[Day][populate][1]=Location`
           );
           fetchedData.push(...data?.data);
           if (
@@ -43,7 +43,7 @@ const homePage: NextPage = () => {
             const { page, pageCount } = data?.meta?.pagination;
             for (let i = page + 1; i <= pageCount; i++) {
               let response = await api.get(
-                `events?pagination[page]=${i}&pagination[pageSize]=10&filters[Day][StartTime][$gte]=${currentDateTimeISO}&sort[0]=id:desc&populate[Day][fields][4]=StartTime&populate[Day][fields][5]=EndTime&populate[Day][fields][6]=Price&populate[Day][populate][0]=Timezone`
+                `events?pagination[page]=${i}&pagination[pageSize]=10&filters[Day][StartTime][$gte]=${currentDateTimeISO}&sort[0]=id:desc&populate[Day][fields][4]=StartTime&populate[Day][fields][5]=EndTime&populate[Day][fields][6]=Price&populate[Day][populate][0]=Timezone&populate[Day][populate][1]=Location`
               );
               fetchedData.push(...response.data.data);
             };
@@ -206,7 +206,8 @@ const homePage: NextPage = () => {
                       key={project.attributes.Name}
                       id={project.id.toString()}
                       Name={project.attributes.Name}
-                      Description={project.attributes.Description}
+                      Content={project.attributes.Content}
+                      SEODescription={project.attributes.SEODescription}
                     />
                   ))}
                 </div>

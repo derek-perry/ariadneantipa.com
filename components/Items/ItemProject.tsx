@@ -5,14 +5,16 @@ import LinkInternal from '../Links/LinkInternal';
 interface IItemProjectProps {
   id: string;
   Name: string;
-  Description: string;
+  Content: string;
+  SEODescription: string;
   className?: string;
 };
 
 const ItemProject: FC<IItemProjectProps> = ({
   id,
   Name,
-  Description,
+  Content,
+  SEODescription,
   className
 }): JSX.Element => {
   function stringWithLineBreaks(inputString: string) {
@@ -30,7 +32,7 @@ const ItemProject: FC<IItemProjectProps> = ({
       title={Name}
       className='w-auto min-w-auto'
     ><h3 className='font-bold text-4xl'>{Name}</h3></LinkInternal>
-      {Description ? (<p className='text-ariWhiteHover text-justify text-xl' dangerouslySetInnerHTML={{ __html: stringWithLineBreaks(Description.split(' ').slice(0, 30).join(' ') + '...') }} />) : ''}
+      {SEODescription ? (<p className='text-ariWhiteHover text-justify text-xl' dangerouslySetInnerHTML={{ __html: stringWithLineBreaks(SEODescription.split(' ').slice(0, 30).join(' ') + '...') }} />) : (Content ? (<p className='text-ariWhiteHover text-justify text-xl' dangerouslySetInnerHTML={{ __html: stringWithLineBreaks(Content.split(' ').slice(0, 30).join(' ') + '...') }} />) : (''))}
       <ButtonInternal
         href={`project/${Name}?id=${id}`}
         title={Name}

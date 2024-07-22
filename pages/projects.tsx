@@ -75,7 +75,8 @@ const calendarPage: NextPage = () => {
                   key={project.attributes.Name}
                   id={project.id.toString()}
                   Name={project.attributes.Name}
-                  Description={project.attributes.Description}
+                  Content={project.attributes.Content}
+                  SEODescription={project.attributes.SEODescription}
                 />
               ))}
             </section>
