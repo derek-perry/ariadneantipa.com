@@ -192,7 +192,7 @@ const EventPage: NextPage<IEventPageProps> = ({ event, prevUrl }) => {
               </div>
             ) : ''}
             {event.attributes.Name ? (
-              <h3 className='font-bold text-5xl max-md:text-4xl mb-4'>{event.attributes.Name}</h3>
+              <h3 className='mb-4 font-bold text-5xl max-md:text-4xl max-sm:text-3xl'>{event.attributes.Name}</h3>
             ) : ''}
             {event.attributes.Day && event.attributes.Day.length ? (
               <div className='text-left'>
