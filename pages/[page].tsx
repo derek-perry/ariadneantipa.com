@@ -55,7 +55,7 @@ const pagePage: NextPage<IPagePageProps> = ({ pages, page }) => {
             className='max-w-[1000px] w-full'
             id={page.attributes.Title}
           >
-            <h1 className='mb-4'>{page.attributes.Title}</h1>
+            {page.attributes.ShowTitle ? (<h1 className='mb-4'>{page.attributes.Title}</h1>) : ''}
             <p className='mt-4 text-left' dangerouslySetInnerHTML={{ __html: markdownToHtml(page.attributes.Content) }} />
           </article>
         </Page>

@@ -70,7 +70,7 @@ const ProjectPage: NextPage<IProjectPageProps> = ({ project, prevUrl }) => {
             className='max-w-[1000px] w-full'
             id={checkNumberName(project.attributes.Name)}
           >
-            <h1 className='mb-4'>{project.attributes.Name}</h1>
+            {project.attributes.ShowName ? (<h1 className='mb-4'>{project.attributes.Name}</h1>) : ''}
             <div className='mt-4 text-left' dangerouslySetInnerHTML={{ __html: markdownToHtml(project.attributes.Content) }} />
           </article>
         </Page>

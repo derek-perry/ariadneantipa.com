@@ -72,6 +72,7 @@ export interface pageProps {
     Slug: string;
     Content: string;
     SEODescription: string;
+    ShowTitle: boolean | null;
     Image: {
       data: {
         attributes: {
@@ -101,6 +102,7 @@ export interface projectProps {
     Name: string;
     Content: string;
     SEODescription: string;
+    ShowName: boolean | null;
     Image: {
       data: {
         attributes: {
