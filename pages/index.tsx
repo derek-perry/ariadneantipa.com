@@ -161,9 +161,9 @@ const homePage: NextPage = () => {
               >
                 <hr className='hrFancy max-w-[600px] !mt-0' />
                 {(upcomingEvents.length > 1 ? (
-                  <h2 className='mb-4' id='upcoming-events'>Upcoming Events</h2>
+                  <h2 className='my-8' id='upcoming-events'>Upcoming Events</h2>
                 ) : (
-                  <h2 className='mb-4' id='upcoming-event'>Upcoming Event</h2>
+                  <h2 className='my-8' id='upcoming-event'>Upcoming Event</h2>
                 ))}
                 <div
                   className='w-full flex flex-col gap-6 justify-center align-middle items-center text-center'
@@ -193,9 +193,9 @@ const homePage: NextPage = () => {
               >
                 <hr className='hrFancy max-w-[600px] !mt-0' />
                 {(projects.length > 1 ? (
-                  <h2 className='mb-4' id='projects'>Projects</h2>
+                  <h2 className='my-8' id='projects'>Projects</h2>
                 ) : (
-                  <h2 className='mb-4' id='project'>Project</h2>
+                  <h2 className='my-8' id='project'>Project</h2>
                 ))}
                 <div
                   className='w-full flex flex-col gap-6 justify-center align-middle items-center text-center'
