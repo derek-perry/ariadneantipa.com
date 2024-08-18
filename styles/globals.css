@@ -188,3 +188,14 @@ hr.hrFancyDark {
     width: 100%;
   }
 }
+
+.photoRow {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 768px) {
+  .photoRow {
+    flex-direction: row;
+  }
+}

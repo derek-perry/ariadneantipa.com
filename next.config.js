@@ -60,6 +60,26 @@ const nextConfig = {
         "permanent": true
       },
       {
+        "source": "/media/photos",
+        "destination": "/photos",
+        "permanent": true
+      },
+      {
+        "source": "/media/photo",
+        "destination": "/photos",
+        "permanent": true
+      },
+      {
+        "source": "/media/pictures",
+        "destination": "/photos",
+        "permanent": true
+      },
+      {
+        "source": "/media/picture",
+        "destination": "/photos",
+        "permanent": true
+      },
+      {
         "source": "/photo",
         "destination": "/photos",
         "permanent": true
@@ -72,6 +92,26 @@ const nextConfig = {
       {
         "source": "/picture",
         "destination": "/photos",
+        "permanent": true
+      },
+      {
+        "source": "/media/recordings",
+        "destination": "/recordings",
+        "permanent": true
+      },
+      {
+        "source": "/media/recording",
+        "destination": "/recordings",
+        "permanent": true
+      },
+      {
+        "source": "/media/videos",
+        "destination": "/recordings",
+        "permanent": true
+      },
+      {
+        "source": "/media/video",
+        "destination": "/recordings",
         "permanent": true
       },
       {

@@ -3,8 +3,12 @@ import SiteHead from '../components/SiteHead';
 import PageHeader from '../components/PageHeader';
 import PageFooter from '../components/PageFooter';
 import Video from '../components/Video';
+import Image from 'next/image';
+import LinkExternal from '../components/Links/LinkExternal';
 
 const recordingsPage: NextPage = () => {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ? process.env.NEXT_PUBLIC_SITE_URL : 'https://ariadneantipa.com';
+
   return (
     <div className='min-h-screen flex flex-col items-center justify-center'>
       <SiteHead title="Ariadne Antipa's Recordings" description='Ariadne Antipa is a pianist, conductor, and educator residing in Cincinnati, Ohio. She is recognized for her creative programming and exquisitely played concerts.' url='recordings' image='' />
@@ -12,8 +16,12 @@ const recordingsPage: NextPage = () => {
       <main className='bg-ariBlack text-ariWhite w-full flex flex-1 flex-col text-center items-center justify-center'>
         <section id='recordings'>
           <section className='px-9 max-md:mt-10 md:mt-20 mb-28 max-w-[1000px] text-left'>
-            <h1 className='mb-4'>Recordings</h1>
-            <div className='flex max-md:flex-col md:flex-row md:flex-wrap gap-y-2'>
+            <h1>Recordings</h1>
+              <div className='flex flex-row max-sm:flex-col max-sm:text-center max-sm:items-center max-sm:justify-center gap-4 w-auto my-6 p-6 bg-ariBlackDark rounded'>
+                <Image src={(siteUrl + '/youtube.svg')} alt='' aria-hidden='true' height={50} width={50} />
+                <p><span className='text-white !no-underline'>See all of Ariadne’s videos:</span> <br /><LinkExternal href='https://youtube.com/@AriadneAntipa' title=''><span className='max-sm:break-all'>youtube.com/@AriadneAntipa</span></LinkExternal></p>
+              </div>
+            <div className='flex max-md:flex-col md:flex-row md:flex-wrap gap-3'>
               <Video
                 title='Auerbach Preludes 2 and 16 - Ariadne Antipa, piano'
                 url='cjCEEFTmJWI'
