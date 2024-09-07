@@ -9,7 +9,7 @@ import LinkExternal from '../components/Links/LinkExternal';
 import ItemEvent from '../components/Items/ItemEvent';
 import ItemProject from '../components/Items/ItemProject';
 
-const homePage: NextPage = () => {
+const HomePage: NextPage = () => {
   let currentDateTime: Date = new Date();
   const timezoneOffset = new Date().getTimezoneOffset()
   const offset = Math.abs(timezoneOffset)
@@ -220,4 +220,4 @@ const homePage: NextPage = () => {
   );
 };
 
-export default homePage;
+export default HomePage;

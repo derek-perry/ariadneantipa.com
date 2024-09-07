@@ -6,7 +6,7 @@ import { projectProps } from '../lib/api';
 import Page from '../components/Page';
 import ItemProject from '../components/Items/ItemProject';
 
-const calendarPage: NextPage = () => {
+const CalendarPage: NextPage = () => {
   const [projects, setProjects] = useState<projectProps[]>([]);
   const [isLoadingProjects, setIsLoadingProjects] = useState(false);
 
@@ -87,4 +87,4 @@ const calendarPage: NextPage = () => {
   );
 };
 
-export default calendarPage;
+export default CalendarPage;

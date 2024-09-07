@@ -6,7 +6,7 @@ import Video from '../components/Video';
 import Image from 'next/image';
 import LinkExternal from '../components/Links/LinkExternal';
 
-const recordingsPage: NextPage = () => {
+const RecordingsPage: NextPage = () => {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ? process.env.NEXT_PUBLIC_SITE_URL : 'https://ariadneantipa.com';
 
   return (
@@ -77,4 +77,4 @@ const recordingsPage: NextPage = () => {
   );
 };
 
-export default recordingsPage;
+export default RecordingsPage;
